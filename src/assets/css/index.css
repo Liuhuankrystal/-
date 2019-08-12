@@ -3,3 +3,13 @@ input{
     outline:none;
     border: none;
 }
+
+border-raduis(){
+
+   -webkit-border-radius:9999px;
+-ms-border-radius:9999px;
+-o-border-radius:9999px;
+-moz-border-radius:9999px;
+border-radius:9999px;
+
+}
