@@ -10,14 +10,12 @@ export default {
 }
 </script>
 
-<style>
-@import '../../assets/css/index.less';
+<style  lang='less'  rel="stylesheet/less">
+@import './assets/css/index.less';
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-body{
-  margin: 0 ;
-}
+
 </style>

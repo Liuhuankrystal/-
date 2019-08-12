@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style scoped lang='less'  rel="stylesheet/less">
-
+@import '../assets/css/index.less';
 .header{
   widows: 140px;
   background: #F8F8F8;
@@ -56,8 +56,8 @@ export default {
   margin-right: 28px;
   background: rgba(255, 255, 255, 1);
   border: 1px solid rgba(219, 219, 219, 1);
-  // border-radius:10px;
-  .border-radius(5px);
+  border-radius:10px;
+  // .border-radius(5px);
 }
 .inputName input,
 .inputPassWord input{
