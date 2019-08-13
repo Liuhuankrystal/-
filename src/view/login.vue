@@ -39,14 +39,15 @@ export default {
 }
 
 .titWord {
-  color: #45453f;
+  // color: #45453f;
+  color: @colorWord;
   font-size: 20px;
 }
 .titRight {
-    display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  .displayflexflex-end
 }
+
+
 .inputName,
 .inputPassWord {
   width: 240px;
@@ -56,12 +57,12 @@ export default {
   margin-right: 28px;
   background: rgba(255, 255, 255, 1);
   border: 1px solid rgba(219, 219, 219, 1);
-  border-radius:10px;
-  // .border-radius(5px);
+  .border-radius(5px);
 }
 .inputName input,
 .inputPassWord input{
   text-indent: 10px;
+ 
 }
 
 .question {
