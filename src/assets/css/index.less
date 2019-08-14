@@ -18,20 +18,36 @@ margin: 0 auto;}
     -webkit-border-radius: @radius;
  }
 
-.displayflexSpace-between(){
+.flexSBetween(){
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.displayflexflex-end(){
+.flexEnd(){
     display: flex;
     justify-content: flex-end;
     align-items: center;
 }
 
-.displayflexflex-start(){
+.flexStart(){
     display: flex;
     justify-content: flex-start;
     align-items: center;
+}
+.positionAT(@numLeft;@numTop){
+  position: absolute;
+  left:@numLeft;
+  top:@numTop;
+}
+.positionAB(@numLeft;@numBottom){
+  position: absolute;
+  left:@numLeft;
+  bottom:@numBottom;
+}
+.positionFixedB(){
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }

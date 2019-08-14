@@ -2,7 +2,7 @@
   <div>
     <div class="w1100 uploadPhoto">
       <div class="uploadPhotoImg">
-        <img src="" alt="">
+        <img src alt />
         <div class="addReduce">
           <div class="add">+</div>
           <div class="line"></div>
@@ -13,7 +13,7 @@
         <div class="back">返回</div>
         <div class="phoneImg"></div>
         <div class="tips">添加个人形象照 拷贝</div>
-        <div class="sureButton">确定</div>
+        <div class="sureButton gery">确定</div>
       </div>
     </div>
   </div>
@@ -22,8 +22,10 @@
 export default {
   name: "App",
   mounted() {
-  document.querySelector('body').setAttribute('style', 'background-color:#474747')
-},
+    document
+      .querySelector("body")
+      .setAttribute("style", "background-color:#474747");
+  },
   beforeDestroy() {
     document.querySelector("body").removeAttribute("style");
   }
@@ -36,7 +38,8 @@ body {
   background: #474747;
 }
 .uploadPhoto {
-  .displayflexSpace-between;
+  margin-top: 48px;
+  .flexSBetween;
   .uploadPhotoImg {
     position: relative;
     img {
@@ -44,9 +47,10 @@ body {
       height: 600px;
     }
     .addReduce {
-      position: absolute;
-      width: 90%;
+      .positionAB(76px, 26px);
+      width: calc(100% -76px);
       margin: 0 auto;
+      .flexSBetween;
       .add,
       .Reduce {
         width: 32px;
@@ -65,10 +69,12 @@ body {
     .back {
       color: #fff;
       font-size: 18px;
+      text-align: center;
     }
     .phoneImg {
       width: 140px;
       height: 140px;
+      background: #5b5b5b;
       margin: 76px auto 59px auto;
       .border-radius(50%);
     }
@@ -78,12 +84,20 @@ body {
       margin-bottom: 183px;
     }
     .sureButton {
-      width: 35px;
-      height: 18px;
+      text-align: center;
+      width: 100px;
+      height: 40px;
+      line-height: 40px;
       font-size: 18px;
-      line-height: 18px;
-      background: #0a7ddf;
       .border-radius(10px);
+    }
+    .sureButton.gery {
+      background: #474747;
+      color: #063e6d;
+    }
+    .sureButton.blue {
+      background: #0A7DDF;
+      color: #fff;
     }
   }
 }
