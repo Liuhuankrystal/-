@@ -2,7 +2,7 @@
   <div>
     <div class="w1100 uploadPhoto">
       <div class="uploadPhotoImg">
-        <img src alt />
+        <img src="" alt="">
         <div class="addReduce">
           <div class="add">+</div>
           <div class="line"></div>
@@ -20,11 +20,18 @@
 </template>
 <script>
 export default {
-  name: "App"
+  name: "App",
+  mounted() {
+  document.querySelector('body').setAttribute('style', 'background-color:#474747')
+},
+  beforeDestroy() {
+    document.querySelector("body").removeAttribute("style");
+  }
 };
 </script>
 
 <style lang="less" scoped>
+@import "../assets/css/index.less";
 body {
   background: #474747;
 }
