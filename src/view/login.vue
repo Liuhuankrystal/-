@@ -29,9 +29,9 @@
           建良好的体验在努力持续的改进中，谢谢您对我们的支持！
         </div>
         <div class="loginInput">
-          <input type="text"  v-model="name" placeholder="真实姓名" />
+          <input type="text" v-model="name" placeholder="真实姓名" />
         </div>
-         <div class="loginInput">
+        <div class="loginInput">
           <input type="text" v-model="email" placeholder="常用邮箱" />
         </div>
         <div class="loginInput">
@@ -44,31 +44,41 @@
     </div>
 
     <!-- <div style="height:64px"></div>  
-    <div class="footer">woshuoxia&nbsp;&nbsp;2019</div> -->
-    <footer></footer>
-
+    <div class="footer">woshuoxia&nbsp;&nbsp;2019</div>-->
+    <Bfooter></Bfooter>
   </div>
 </template>
 
 <script>
-import footer from '../components/footer'
+import Bfooter from "../components/footer"; //上传图片
 export default {
   name: "App",
+  mounted() {
+    document
+      .querySelector("body")
+      .setAttribute("style", "background-color:#fff");
+  },
+  beforeDestroy() {
+    document.querySelector("body").removeAttribute("style");
+  },
   data() {
     return {
-      name: '',
-      email:'',
-      passWord:'',
-    }
+      name: "",
+      email: "",
+      passWord: ""
+    };
   },
-  components:{
-    footer
+  components: {
+    Bfooter
   }
 };
 </script>
 
 <style scoped lang='less'  rel="stylesheet/less">
 @import "../assets/css/index.less";
+  body{
+      background: #fff;
+    }
 .header {
   widows: 140px;
   background: #f8f8f8;
@@ -128,7 +138,7 @@ export default {
     position: relative;
     margin-bottom: 65px;
     .leftTitWord {
-      .positionAT(63px,28px);
+      .positionALT(63px, 28px);
       font-size: 20px;
       font-weight: bold;
       color: #1d1d1d;
@@ -147,7 +157,7 @@ export default {
     .loginInput {
       width: 398px;
       height: 58px;
-      border: 1px solid #DBDBDB;
+      border: 1px solid #dbdbdb;
       margin-bottom: 36px;
       .flexStart;
       .border-radius(10px);
@@ -157,38 +167,38 @@ export default {
         text-indent: 20px;
       }
     }
-    .loginInput:last-child{
+    .loginInput:last-child {
       margin-bottom: 0;
     }
     .loginButton {
       width: 166px;
       height: 48px;
-      line-height:48px;
+      line-height: 48px;
       margin-top: 48px;
       margin-left: 155px;
-      color: #2D2D2D;
+      color: #2d2d2d;
       text-align: center;
-      border: 1px solid #DBDBDB;
+      border: 1px solid #dbdbdb;
       .border-radius(10px);
     }
-    .tips{
+    .tips {
       width: 376px;
       height: 33px;
       line-height: 33px;
-      color: #7F7F7F;
+      color: #7f7f7f;
       font-size: 14px;
       text-align: center;
-      background: #F8F8F8;
+      background: #f8f8f8;
       margin-top: 16px;
-        margin-left: 11px;
+      margin-left: 11px;
     }
   }
 }
 
-.footer{
-  height:64px;
+.footer {
+  height: 64px;
   line-height: 64px;
-  background:#F8F8F8;
+  background: #f8f8f8;
   text-align: center;
 
   .positionFixedB;

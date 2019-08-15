@@ -5,10 +5,9 @@ input{
     width: 100%;
 }
 body{
-    margin: 0 ;
+    margin: 0;
 }
-.w1100{width: 1100px;
-margin: 0 auto;}
+.w1100{width: 1100px;margin: 0 auto;}
 
 @colorWord: #45453f;
 
@@ -35,16 +34,27 @@ margin: 0 auto;}
     justify-content: flex-start;
     align-items: center;
 }
-.positionAT(@numLeft;@numTop){
+.positionALT(@numLeft;@numTop){
   position: absolute;
   left:@numLeft;
   top:@numTop;
 }
-.positionAB(@numLeft;@numBottom){
+.positionALB(@numLeft;@numBottom){
   position: absolute;
   left:@numLeft;
   bottom:@numBottom;
 }
+.positionART(@numRight;@numTop){
+  position: absolute;
+  right:@numRight;
+  top:@numTop;
+}
+.positionARB(@numRight;@numBottom){
+  position: absolute;
+  right:@numRight;
+  bottom:@numBottom;
+}
+
 .positionFixedB(){
   position: fixed;
   bottom: 0;

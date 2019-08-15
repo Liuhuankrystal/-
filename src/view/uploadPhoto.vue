@@ -35,7 +35,7 @@ export default {
 <style lang="less" scoped>
 @import "../assets/css/index.less";
 body {
-  background: #474747;
+  background:#474747;
 }
 .uploadPhoto {
   margin-top: 48px;
@@ -47,7 +47,7 @@ body {
       height: 600px;
     }
     .addReduce {
-      .positionAB(76px, 26px);
+      .positionALB(76px, 26px);
       width: calc(100% -76px);
       margin: 0 auto;
       .flexSBetween;
@@ -92,8 +92,9 @@ body {
       .border-radius(10px);
     }
     .sureButton.gery {
-      background: #474747;
+      background: #636464;
       color: #063e6d;
+      margin: 0 auto;
     }
     .sureButton.blue {
       background: #0A7DDF;
