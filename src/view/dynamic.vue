@@ -28,15 +28,56 @@
                 Update Some
               </div>
               <div class="word">
-                   <img src alt />
-                   Add Photos</div>
+                <img src alt />
+                Add Photos
+              </div>
             </div>
             <div class="fromWord">
-                <textarea placeholder="你有什么事？" id="" cols="30" rows="10"></textarea>
+              <textarea placeholder="你有什么事？" id cols="30" rows="10"></textarea>
             </div>
             <div class="post">
-              <button>Post</button>
+              <div class="button">Post</div>
             </div>
+          </div>
+
+          <!-- 欢迎加入 -->
+          <div class="joinUs">
+            <div class="close">X</div>
+            <div class="left">
+              <img src alt />
+            </div>
+            <div class="right">
+              <div class="tit">欢迎加入woshuoxia</div>
+              <div class="word">我们会定期推出应用更新，让应用变得更加完善。感谢使用woshuoxia！</div>
+              <div class="smallWord">现在，向快拍和动态消息发布照片和视频时可以添加音乐片段啦！</div>
+            </div>
+          </div>
+
+          <!-- 更新视图 -->
+          <div class="news">
+            <div class="topHead">
+              <img src alt />
+              <div class="left">
+                <div class="name">BukinZhang</div>
+                <div class="time">10.16 at 08:20PM</div>
+              </div>
+            </div>
+            <div class="picture">
+              <img src alt />
+            </div>
+            <div class="message">
+              <div class="num">2,888次Highlight</div>
+              <div class="word">观看你最喜欢的 Instagram 创作者发布的纵向长视频。
+IGTV 带给用户的体验有别于与一般的视频。IGTV 视频是纵向且全屏的，侧边没有任
+何黑框，因此，你无需旋转自己的手机。而且，这些视频并未限制为一分钟，这意味
+着你可以看到更多喜欢的内容。</div>
+              <div class="speakNum">全部16条发言<span class="yellowR"></span>  6位未发言</div>
+              <div class="name">
+                <span class="nameWord">Mr.Msh</span>只能现拍太局限了，很多以前拍的长视频如果可以导入处理的话
+              </div>
+
+            </div>
+            <div class="Interflow"></div>
           </div>
         </div>
         <div class="right"></div>
@@ -68,6 +109,7 @@ body {
 }
 
 .home {
+  margin-top: 16px;
   .flexSBetween;
   .left {
     .name {
@@ -90,72 +132,201 @@ body {
   }
   .center {
     width: 544px;
-    .postMsg {
-      background: #fff;
-      .tabs {
-        padding: 14px;
-        padding-bottom: 12px;
-        border-bottom: 1px solid #d6d6d6;
-        .flexStart;
-        .word {
-          color: #26709b;
-          font: 14px;
-          margin-right: 30px;
-        }
-        .word.active {
-          position: relative;
-        }
-        .word.active::before {
-          content: "";
-          position: absolute;
-          bottom: -13px;
-          left: 50%;
-          margin-left:0px;
-          width: 40px;
-          height: 2px;
-          background: #1c1c1c;
-        }
-        img {
-          width: 20px;
-          height: 20px;
-          background: #c6c6c6;
-          margin-right: 12px;
-        }
-      }
-      .fromWord {
-        padding: 14px;
-        color: #afafaf;
-        textarea{
-            color: #AFAFAF;
-            font-size: 14px;
-            height: 54px;
-            outline: none;
-            resize:none;
-            width: 100%;
-            border: none;
-        }
-
-      }
-      .post {
-        border-top: 1px solid #d6d6d6;
-        padding: 10px 14px;
-        button {
-          color: #15a3f5;
-          font-size: 14px;
-          width: 62px;
-          height: 26px;
-          line-height: 26px;
-          background: #e8e8e8;
-          border-radius: 13px;
-          text-align: center;
-          outline: none;
-        }
-      }
-    }
   }
   .right {
     width: 336px;
     background: #fff;
+  }
+}
+
+// post
+.postMsg {
+  background: #fff;
+  .tabs {
+    padding: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #d6d6d6;
+    .flexStart;
+    .word {
+      color: #26709b;
+      font: 14px;
+      margin-right: 30px;
+    }
+    .word.active {
+      position: relative;
+    }
+    .word.active::before {
+      content: "";
+      position: absolute;
+      bottom: -13px;
+      left: 50%;
+      margin-left: 0px;
+      width: 40px;
+      height: 2px;
+      background: #1c1c1c;
+    }
+    img {
+      width: 20px;
+      height: 20px;
+      background: #c6c6c6;
+      margin-right: 12px;
+    }
+  }
+  .fromWord {
+    padding: 14px;
+    color: #afafaf;
+
+    textarea {
+      color: #afafaf;
+      font-size: 14px;
+      height: 54px;
+      outline: none;
+      resize: none;
+      width: 100%;
+      border: none;
+    }
+  }
+  .post {
+    .flexEnd;
+    border-top: 1px solid #d6d6d6;
+    padding: 14px;
+    .button {
+      color: #15a3f5;
+      font-size: 14px;
+      width: 62px;
+      height: 26px;
+      line-height: 26px;
+      background: #e8e8e8;
+      border-radius: 13px;
+      text-align: center;
+    }
+  }
+}
+
+// 欢迎加入
+.joinUs {
+  margin-top: 16px;
+  background: #fff;
+  padding: 18px 14px;
+  .flexStart;
+  position: relative;
+  .close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: #c5c5c5;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+  }
+  .left {
+    img {
+      width: 94px;
+      height: 94px;
+      background: #a6a6a6;
+      margin-right: 14px;
+    }
+  }
+  .right {
+    .tit {
+      color: #1c1c1c;
+      font-size: 20px;
+      font-weight: bold;
+      .oneLines;
+      height: 20px;
+    }
+    .word {
+      color: #1c1c1c;
+      font-size: 16px;
+      height: 36px;
+      margin-top: 15px;
+      margin-bottom: 9px;
+      .twoLines;
+    }
+    .smallWord {
+      color: #7f7f7f;
+      font-size: 14px;
+      height: 15px;
+      .oneLines;
+    }
+  }
+}
+
+// 更新视图
+.news {
+  margin-top: 14px;
+  background: #fff;
+  //头像
+  .topHead {
+    padding: 14px;
+    .flexStart;
+    img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      margin-right: 14px;
+    }
+    .left {
+      .name {
+        color: #1d1d1d;
+        font-size: 14px;
+      }
+      .time {
+        color: #7f7f7f;
+        font-size: 12px;
+        margin-top: 8px;
+      }
+    }
+  }
+
+  // 图片
+  .picture {
+    width: 544px;
+    height: 544px;
+    background: #f5f5f5;
+    img {
+      width: 100%;
+    }
+  }
+
+  //发言
+  .message{
+    padding: 14px;
+    .num{
+      color: #282A2B;
+      font-size: 14px;
+      margin-bottom: 15px; 
+    }
+    .word{
+      color: #1C1C1C;
+      font-size: 14px;
+      line-height:24px;
+      margin-bottom: 12px;
+    }
+    .speakNum{
+      margin-bottom: 12px;
+      color: #7F7F7F;
+      font-size: 14px;
+      .flexStart;
+    }
+    .yellowR{
+      width:14px;
+height:14px;
+background:#E6D621;
+display: inline-block;
+margin: 0 8px;
+    }
+    .name{
+      margin-bottom: 12px;
+      .nameWord{
+        font-weight: bold;
+      }
+      color: #4D4D4D;
+      font-size: 14px;
+    }
   }
 }
 </style>
