@@ -63,19 +63,27 @@
               </div>
             </div>
             <div class="picture">
-              <img src alt />
+              <el-carousel indicator-position="outside" trigger='click' height="544px">
+                <el-carousel-item v-for="item in 4" :key="item">
+                 <img src="" alt /> 
+                </el-carousel-item>
+              </el-carousel>
             </div>
             <div class="message">
               <div class="num">2,888次Highlight</div>
-              <div class="word">观看你最喜欢的 Instagram 创作者发布的纵向长视频。
-IGTV 带给用户的体验有别于与一般的视频。IGTV 视频是纵向且全屏的，侧边没有任
-何黑框，因此，你无需旋转自己的手机。而且，这些视频并未限制为一分钟，这意味
-着你可以看到更多喜欢的内容。</div>
-              <div class="speakNum">全部16条发言<span class="yellowR"></span>  6位未发言</div>
+              <div class="word">
+                观看你最喜欢的 Instagram 创作者发布的纵向长视频。
+                IGTV 带给用户的体验有别于与一般的视频。IGTV 视频是纵向且全屏的，侧边没有任
+                何黑框，因此，你无需旋转自己的手机。而且，这些视频并未限制为一分钟，这意味
+                着你可以看到更多喜欢的内容。
+              </div>
+              <div class="speakNum">
+                全部16条发言
+                <span class="yellowR"></span> 6位未发言
+              </div>
               <div class="name">
                 <span class="nameWord">Mr.Msh</span>只能现拍太局限了，很多以前拍的长视频如果可以导入处理的话
               </div>
-
             </div>
             <div class="Interflow"></div>
           </div>
@@ -110,7 +118,8 @@ body {
 
 .home {
   margin-top: 16px;
-  .flexSBetween;
+  display: flex;
+  justify-content: space-between;
   .left {
     .name {
       margin-bottom: 10px;
@@ -256,6 +265,14 @@ body {
 }
 
 // 更新视图
+
+.el-carousel__container {
+    position: relative;
+    height: 100%!important;
+}
+.el-carousel__indicators--outside{
+  bottom: -20px!important;
+}
 .news {
   margin-top: 14px;
   background: #fff;
@@ -287,44 +304,45 @@ body {
     width: 544px;
     height: 544px;
     background: #f5f5f5;
+   
     img {
       width: 100%;
     }
   }
 
   //发言
-  .message{
+  .message {
     padding: 14px;
-    .num{
-      color: #282A2B;
+    .num {
+      color: #282a2b;
       font-size: 14px;
-      margin-bottom: 15px; 
+      margin-bottom: 15px;
     }
-    .word{
-      color: #1C1C1C;
+    .word {
+      color: #1c1c1c;
       font-size: 14px;
-      line-height:24px;
+      line-height: 24px;
       margin-bottom: 12px;
     }
-    .speakNum{
+    .speakNum {
       margin-bottom: 12px;
-      color: #7F7F7F;
+      color: #7f7f7f;
       font-size: 14px;
       .flexStart;
     }
-    .yellowR{
-      width:14px;
-height:14px;
-background:#E6D621;
-display: inline-block;
-margin: 0 8px;
+    .yellowR {
+      width: 14px;
+      height: 14px;
+      background: #e6d621;
+      display: inline-block;
+      margin: 0 8px;
     }
-    .name{
+    .name {
       margin-bottom: 12px;
-      .nameWord{
+      .nameWord {
         font-weight: bold;
       }
-      color: #4D4D4D;
+      color: #4d4d4d;
       font-size: 14px;
     }
   }
