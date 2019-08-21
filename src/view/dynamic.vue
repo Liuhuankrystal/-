@@ -63,9 +63,9 @@
               </div>
             </div>
             <div class="picture">
-              <el-carousel indicator-position="outside" trigger='click' height="544px">
+              <el-carousel indicator-position="outside" trigger="click" height="544px">
                 <el-carousel-item v-for="item in 4" :key="item">
-                 <img src="" alt /> 
+                  <img src alt />
                 </el-carousel-item>
               </el-carousel>
             </div>
@@ -85,10 +85,59 @@
                 <span class="nameWord">Mr.Msh</span>只能现拍太局限了，很多以前拍的长视频如果可以导入处理的话
               </div>
             </div>
-            <div class="Interflow"></div>
+            <div class="Interflow">
+              <div class="icon"></div>
+              <div class="word">Interflow…</div>
+            </div>
           </div>
         </div>
-        <div class="right"></div>
+
+        <div class="right">
+          <div class="homeRCont">
+            <!-- 1 -->
+            <div class="welcome">
+              <div class="icon"></div>
+              <div class="welcomeName">
+                欢迎<span>邀请您的伙伴</span>加入woshuoxia
+              </div>
+            </div>
+
+            
+            <!-- 2.1 -->
+            <div class="allPeople">
+              <div class="icon">11</div>
+              <div class="name">
+                <a href="">王茜、</a>
+                <a href="">Eterian、</a>
+                <a href="">Lillian、</a>
+                <span>and</span>  
+                <a href=""  class="sixPeople">6 others为您推荐</a>
+                <span>ta们会不会是有料的伙伴呢？感兴趣就“Link”吧，相信你会遇见开心！ </span>
+              </div>
+            </div>
+            <!-- 2.2 -->
+            <div class="HLight">
+              <div class="icon"></div>
+              <div class="HLightName">
+                <div class="name">Highlight 大赏</div>
+                <div class="HLightImgNum">
+                  <div class="HLightImg">
+                    <img src='' alt />
+                    <img src='' alt />
+                    <img src='' alt />
+                  </div>
+                  <div class="HLightNum">1,286</div>
+                </div>
+                <div class="word">根据伙伴之间互动高光来选拔展示</div>
+              </div>
+            </div>
+
+            <!-- 3 -->
+            <div class="dayNum">26日人物</div>
+            <a class="dayName">@克莱西</a>
+            <div class="dayWrod">1,288 发言 ·Woshuoxia Founder & PM</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -121,6 +170,7 @@ body {
   display: flex;
   justify-content: space-between;
   .left {
+    width: 186px;
     .name {
       margin-bottom: 10px;
       img {
@@ -267,11 +317,11 @@ body {
 // 更新视图
 
 .el-carousel__container {
-    position: relative;
-    height: 100%!important;
+  position: relative;
+  height: 100% !important;
 }
-.el-carousel__indicators--outside{
-  bottom: -20px!important;
+.el-carousel__indicators--outside {
+  bottom: -20px !important;
 }
 .news {
   margin-top: 14px;
@@ -304,7 +354,7 @@ body {
     width: 544px;
     height: 544px;
     background: #f5f5f5;
-   
+
     img {
       width: 100%;
     }
@@ -345,6 +395,127 @@ body {
       color: #4d4d4d;
       font-size: 14px;
     }
+  }
+
+  //Interflow
+  .Interflow {
+    .flexSBetween;
+    .icon {
+      width: 22px;
+      height: 22px;
+      background: #c6c6c6;
+      margin-top: 15px;
+    }
+    .word {
+      color: #7f7f7f;
+      font-size: 14px;
+    }
+  }
+}
+
+// right
+
+.homeRCont {
+  padding: 36px 14px 14px 14px;
+  .welcome {
+    .flexStart;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #e7e7e7;
+  }
+  .icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    display: block;
+    background: #c6c6c6;
+  }
+  .welcomeName {
+    color: #1c1c1c;
+    font-size: 14px;
+    span {
+      color: #166593;
+      font-size: 14px;
+    }
+  }
+
+  // 2
+  .allPeople{
+    margin-top: 14px;
+    display: flex;
+    justify-content: flex-start;
+      .name{
+        color: #7f7f7f;
+        font-size: 14px;
+        line-height: 20px;
+        a {
+          color: #166593;
+        }
+        span {
+          color: #7f7f7f;
+        }
+        .sixPeople {
+          color: #166593;
+        }
+      }
+    
+  }
+
+  // 2.2
+  .HLight {
+    margin-top: 22px;
+    display: flex;
+    justify-content: flex-start;
+    border-bottom: 1px solid #e7e7e7;
+    padding-bottom: 14px;
+    .HLightName {
+      .name {
+        font-size: 14px;
+        color: #166593;
+        margin-bottom: 14px;
+      }
+    }
+    .HLightImgNum {
+      .flexStart;
+      .HLightImg {
+        img {
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+          // margin-left: -25%;
+          border: 2px solid #fff;
+          background: #c6c6c6;
+        }
+      }
+      .HLightNum {
+        color: #1c1c1c;
+        font-size: 14px;
+        font-weight: bold;
+        margin-left: 12px;
+      }
+      .word {
+        color: #7f7f7f;
+        font-size: 14px;
+      }
+    }
+  }
+
+  // 3
+  .dayNum {
+    color: #737373;
+    font-size: 14px;
+    margin-top: 14px;
+  }
+  .dayName {
+    color: #166593;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 12px;
+    display: inline-block;
+  }
+  .dayWrod {
+    color: #1c1c1c;
+    font-size: 14px;
+    margin-top: 9px;
   }
 }
 </style>
