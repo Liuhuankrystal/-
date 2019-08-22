@@ -9,12 +9,12 @@ import dynamic from '../view/dynamic'
 
 
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: '/login',
+      path: '/',
       name: '登录',
       component: login
     },
@@ -24,7 +24,7 @@ export default new Router({
       component: uploadPhoto
     },
     {
-      path: '/',
+      path: '/dynamic',
       name: '动态事务',
       component: dynamic
     },

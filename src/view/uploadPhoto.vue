@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="right">
-        <div class="back">返回</div>
+        <div class="back" @click="back()">返回</div>
         <div class="phoneImg"></div>
         <div class="tips">添加个人形象照 拷贝</div>
         <div class="sureButton gery">确定</div>
@@ -28,7 +28,12 @@ export default {
   },
   beforeDestroy() {
     document.querySelector("body").removeAttribute("style");
-  }
+  },
+    methods:{
+        back(){
+            this.$router.go(-1);//返回上一层
+        }
+    }
 };
 </script>
 
@@ -77,6 +82,7 @@ body {
       background: #5b5b5b;
       margin: 76px auto 59px auto;
       .border-radius(50%);
+      cursor: pointer;
     }
     .tips {
       color: #bbbbbb;

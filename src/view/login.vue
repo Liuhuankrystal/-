@@ -5,20 +5,20 @@
         <div class="titWord">这里是您的开始</div>
         <div class="titRight">
           <div class="inputName">
-            <input v-model="input" placeholder="姓名/邮箱" />
+            <input v-model="name" placeholder="姓名/邮箱" />
           </div>
           <div class="inputPassWord">
-            <input placeholder="密码" v-model="input" show-password />
+            <input placeholder="密码" v-model="passWord" show-password />
           </div>
-          <div class="question">?</div>
-          <div class="loginBtn">登录</div>
+          <div class="question" @click="forgetPassWord()">?</div>
+          <div class="loginBtn" @click="toHome()">登录</div>
         </div>
       </div>
     </div>
     <div class="loginbg w1100">
       <div class="left">
         <div class="leftTitWord">连接你感兴趣的人或事，交流我和ta之间专属的一切。</div>
-        <img src alt />
+        <img src="/static/img/login.png" alt />
       </div>
       <div class="right">
         <div class="loginWord">
@@ -37,7 +37,7 @@
         <div class="loginInput">
           <input type="password" v-model="passWord" placeholder="密码" />
         </div>
-        <div class="loginButton">我要注册</div>
+        <div class="loginButton" @click="toUploadPhoto()">我要注册</div>
 
         <div class="tips">姓名请使用文字，大家都看得懂</div>
       </div>
@@ -68,6 +68,30 @@ export default {
       passWord: ""
     };
   },
+  created(res){
+
+  }
+,
+  methods:{
+      //忘记密码
+      forgetPassWord(){
+          this.$router.push('/forgetPassWord')
+      },
+      //去主页
+      toHome(){
+          this.$router.push({
+              path:'/dynamic',
+              query:{
+                  id:1
+              }
+          })
+      },
+      //注册
+      toUploadPhoto(){
+          this.$router.push('/uploadPhoto');
+      }
+  }
+  ,
   components: {
     Bfooter
   }
@@ -116,8 +140,15 @@ export default {
 }
 
 .question {
+  width: 70px;
   color: #f31e78;
   margin-right: 19px;
+  border-radius: 50%;
+  border: 1px solid #DBDBDB;
+  text-align: center;
+  line-height: 26px;
+  font-weight: 600;
+  cursor: pointer;
 }
 .loginBtn {
   width: 152px;
@@ -128,6 +159,7 @@ export default {
   background: #fff;
   border: 1px solid rgba(243, 30, 120, 1);
   border-radius: (10px);
+  cursor: pointer;
 }
 .loginbg {
   .flexStart;
@@ -145,6 +177,7 @@ export default {
     }
   }
   .right {
+    z-index: 99;
     width: 416px;
     margin-left: -125px;
     margin-top: -10px;
@@ -180,6 +213,7 @@ export default {
       text-align: center;
       border: 1px solid #dbdbdb;
       .border-radius(10px);
+      cursor: pointer;
     }
     .tips {
       width: 376px;

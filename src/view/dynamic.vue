@@ -154,6 +154,14 @@ export default {
       passWord: ""
     };
   },
+  created(){
+      console.log(this.$route.query);
+  }
+,
+  methods:{
+
+  }
+,
   components: {
     Topheader
   }
