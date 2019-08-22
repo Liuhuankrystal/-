@@ -10,7 +10,6 @@ import dynamic from '../view/dynamic'
 
 
 Vue.use(Router);
-
 export default new Router({
   routes: [
     {

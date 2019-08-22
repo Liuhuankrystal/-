@@ -1,4 +1,5 @@
 import axios from 'axios'
+import route from '../src/router/index.js'
 
 let apiUrl='https://demo.chuanyufs.com/woshuoxia/public/index.php/';
 export default{
@@ -33,6 +34,8 @@ export default{
     loginOut:function () {
         //清除缓存
         console.log('out');
+        console.log(route);
+        //this.$router.push('/forgetPassWord')
     }
 
 }

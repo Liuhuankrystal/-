@@ -1,5 +1,6 @@
 <template>
   <div>
+
     <div class="header">
       <div class="headerTop">
         <div class="titWord">这里是您的开始</div>
@@ -18,7 +19,7 @@
     <div class="loginbg w1100">
       <div class="left">
         <div class="leftTitWord">连接你感兴趣的人或事，交流我和ta之间专属的一切。</div>
-        <img src="/static/img/login.png" alt />
+        <img src="../../static/img/login.png" />
       </div>
       <div class="right">
         <div class="loginWord">
@@ -69,17 +70,22 @@ export default {
     };
   },
   created(){
+      this.$message('这是一条消息提示');
+      let _this=this;
+      console.log(this.$router);
+
+      _this.common.loginOut();
       //接口请求
-    this.common.request('api/user/login',{id:1},function (res) {
+    /*this.common.request('api/user/login',{id:1},function (res) {
         console.log(res);
-    },'post');
+    },'post');*/
   }
 ,
   methods:{
       //忘记密码
       forgetPassWord(){
           //this.$router.push('/forgetPassWord');
-          this.common.push('/forgetPassWord',{id:1});
+          //this.common.push('/forgetPassWord',{id:1});
       },
       //去主页
       toHome(){
