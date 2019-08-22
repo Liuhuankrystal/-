@@ -10,6 +10,10 @@ import Vue from 'vue'
 import App from './App.vue'
 
 
+//引入公共js
+import common from '../commonFunction/common'
+Vue.prototype.common = common;
+
 // import Vant from 'vant';
 // import 'vant/lib/index.css';
 // Vue.use(Vant);

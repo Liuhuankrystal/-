@@ -68,14 +68,18 @@ export default {
       passWord: ""
     };
   },
-  created(res){
-
+  created(){
+      //接口请求
+    this.common.request('api/user/login',{id:1},function (res) {
+        console.log(res);
+    },'post');
   }
 ,
   methods:{
       //忘记密码
       forgetPassWord(){
-          this.$router.push('/forgetPassWord')
+          //this.$router.push('/forgetPassWord');
+          this.common.push('/forgetPassWord',{id:1});
       },
       //去主页
       toHome(){
