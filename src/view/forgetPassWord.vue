@@ -2,9 +2,26 @@
   <div class="forgetPW">
     <img class="bg" src="../../static/img/forget.png" alt />
 
-    <div class="cont" v-if="view_status">
+    <div class="cont" v-if="view_type == 1">
       <div class="emailInput">
         <input type="text" placeholder="请输入您的注册邮箱…" />
+      </div>
+
+      <div class="Btn cursor" @click="sendEmail()">
+        <p>完成</p>
+      </div>
+    </div>
+
+    <div class="cont" v-else-if="view_type == 2">
+        <div class="text">
+          申请找回密码的请求已发送您的邮箱中，请查收并设置新密码，
+          祝今天开心愉快！
+        </div>
+      <div class="emailInput">
+        <input type="text" placeholder="请输入您邮箱中接收到的验证码" />
+      </div>
+      <div class="emailInput">
+        <input type="password" placeholder="请输入新密码" />
       </div>
 
       <div class="Btn cursor" @click="onSub()">
@@ -12,14 +29,11 @@
       </div>
     </div>
 
-    <div class="cont" v-else>
-        <div class="text">
-          申请找回密码的请求已发送您的邮箱中，请查收并设置新密码，
-          祝今天开心愉快！
-        </div>
+    <div class="cont" v-else-if="view_type == 3">
+      <div class="text">
+        您已修改成功新密码，请开始登录，使用Woshuoxia的服务，祝你开心！
+      </div>
     </div>
-
-
     <div class="loginWord cursor" @click="$router.go(-1)">我要登录</div>
   </div>
 </template>
@@ -29,7 +43,7 @@
         name: "App",
         data() {
             return {
-                view_status:true,
+                view_type:1,
             };
         },
         mounted() {
@@ -38,8 +52,11 @@
                 .setAttribute("style", "background-color:#fff");
         },
         methods:{
+            sendEmail(){
+                this.view_type=2;
+            },
             onSub(){
-                this.view_status=false;
+                this.view_type =3;
             }
         }
     }
