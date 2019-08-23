@@ -6,6 +6,7 @@ import login from '../view/login'
 import uploadPhoto from '../view/uploadPhoto'
 import forgetPassWord from '../view/forgetPassWord'
 import dynamic from '../view/dynamic'
+import debut from '../view/debut'
 
 
 
@@ -31,6 +32,11 @@ export default new Router({
       path: '/forgetPassWord',
       name: '忘记密码',
       component: forgetPassWord
-    }
+    },
+      {
+          path: '/debut',
+          name: 'Debut',
+          component: debut
+      }
   ]
 })

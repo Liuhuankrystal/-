@@ -5,19 +5,19 @@
     <div class="w1100">
       <div class="home">
         <div class="left">
-          <div class="name">
-            <img src alt />
+          <div class="name head_body">
+            <img src="../../static/img/head.png" alt />
             <div class="names">张伯卿</div>
           </div>
 
-          <div class="name">
-            <img src alt />
+          <div class="name cursor head_body" @click="$router.push('/debut')">
+            <img src="../../static/img/head.png" alt />
             <div class="names">Debut</div>
           </div>
           <div class="tit">CANAPE</div>
-          <div class="name">
-            <img src alt />
-            <div class="names">Debut</div>
+          <div class="name head_body">
+            <img src="../../static/img/head.png" alt />
+            <div class="names" style="font-weight: bold">动态事物</div>
           </div>
         </div>
         <div class="center">
@@ -65,7 +65,7 @@
             <div class="picture">
               <el-carousel indicator-position="outside" trigger="click" height="544px">
                 <el-carousel-item v-for="item in 4" :key="item">
-                  <img src alt />
+                  <img src="../../static/img/login.png" alt />
                 </el-carousel-item>
               </el-carousel>
             </div>
@@ -173,6 +173,12 @@ body {
   background: #cbcbcb;
 }
 
+
+.head_body{
+  display: flex;
+  justify-content: flex-start;
+}
+
 .home {
   margin-top: 16px;
   display: flex;
@@ -181,15 +187,20 @@ body {
     width: 186px;
     .name {
       margin-bottom: 10px;
+      cursor: pointer;
       img {
         width: 18px;
         height: 18px;
         margin-right: 12px;
         background: #000;
+        border-radius: 50%;
       }
       .names {
         color: #353535;
       }
+    }
+    .name:hover{
+      text-decoration: underline;
     }
     .tit {
       color: #7f7f7f;
