@@ -6,7 +6,7 @@
             <div class="cont-body" style="margin-top: 20px;">
                 <p class="title">新鲜</p>
                 <div class="content">
-                    <el-carousel :interval="5000" height="230px" :autoplay="autoplay">
+                    <el-carousel :interval="5000" height="230px" arrow="always" :autoplay="autoplay">
                         <el-carousel-item v-for="item in 2" :key="item">
                             <div class="cont-body">
                                 <div class="cont-body2">
@@ -173,6 +173,8 @@
 .cont-body2{
     display: flex;
     justify-content: space-between;
+    width: 90%;
+    margin: 0 auto;
 }
 .card-body{
     width: 16%;
