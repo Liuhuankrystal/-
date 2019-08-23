@@ -37,7 +37,9 @@
                 </div>
             </div>
 
-            <div class="up-message">Here,Show Something about you</div>
+            <div v-if="isSelf">
+                <div class="up-message" @click="ons()">Here,Show Something about you</div>
+            </div>
 
             <!--内容信息-->
             <div class="list-body">
@@ -73,7 +75,8 @@
             return {
                 listNum1:2,
                 listNum:3,
-                loading:true
+                loading:true,
+                isSelf:true
             }
         },
         mounted() {
@@ -85,6 +88,9 @@
             window.addEventListener('scroll', this.onScroll);
         },
         methods:{
+            ons(){
+              this.$message('发布个人展示待布局');
+            },
             //加载跟多
             onScroll() {
                 //可滚动容器的高度
