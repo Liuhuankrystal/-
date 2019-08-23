@@ -37,12 +37,21 @@
                 </div>
             </div>
 
+
             <!--内容信息-->
             <div class="list-body">
                 <div class="list-info" v-for="item in listNum" :key="item">
                     <img src="../../static/img/sl.jpg" alt="">
                 </div>
             </div>
+
+            <div class="loading" v-loading="loading"
+                 element-loading-text="拼命加载中"
+                 element-loading-spinner="el-icon-loading"
+                 element-loading-background="rgba(246, 246, 246, 0.8)"
+            >
+            </div>
+
         </div>
     </div>
 </template>
@@ -59,6 +68,7 @@
         data(){
             return {
                 listNum:6,
+                loading:true
             }
         },
         mounted() {
@@ -188,6 +198,11 @@
             width: 100%;
             height: 100%;
         }
+    }
+
+    .loading{
+        width: 100%;height: 40px;text-align: center;
+        background-color: #F6F6F6;
     }
 
 </style>
