@@ -5,7 +5,7 @@
     <div class="w1100">
       <div class="home">
         <div class="left">
-          <div class="name head_body">
+          <div class="name head_body" @click="$router.push('/userInfo')">
             <img src="../../static/img/head.png" alt />
             <div class="names">张伯卿</div>
           </div>

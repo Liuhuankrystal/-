@@ -7,6 +7,7 @@ import uploadPhoto from '../view/uploadPhoto'
 import forgetPassWord from '../view/forgetPassWord'
 import dynamic from '../view/dynamic'
 import debut from '../view/debut'
+import userInfo from '../view/userInfo'
 
 
 
@@ -37,6 +38,11 @@ export default new Router({
           path: '/debut',
           name: 'Debut',
           component: debut
+      },
+      {
+          path: '/userInfo',
+          name: '用户信息',
+          component: userInfo
       }
   ]
 })
