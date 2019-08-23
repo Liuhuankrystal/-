@@ -37,3 +37,10 @@ body {
   line-clamp: 2;
   -webkit-box-orient: vertical;
 }
+
+.cursor{
+  cursor: pointer;
+}
+.hover{
+  text-decoration: underline;
+}

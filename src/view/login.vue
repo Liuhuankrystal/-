@@ -11,7 +11,7 @@
           <div class="inputPassWord">
             <input placeholder="密码" v-model="passWord" show-password />
           </div>
-          <div class="question" @click="forgetPassWord()">?</div>
+          <div class="question" title="忘记密码？" @click="forgetPassWord()">?</div>
           <div class="loginBtn" @click="toHome()">登录</div>
         </div>
       </div>
@@ -70,11 +70,11 @@ export default {
     };
   },
   created(){
-      this.$message('这是一条消息提示');
+      //this.$message('这是一条消息提示');
       let _this=this;
-      console.log(this.$router);
+      //console.log(this.$router);
 
-      _this.common.loginOut();
+      //_this.common.loginOut();
       //接口请求
     /*this.common.request('api/user/login',{id:1},function (res) {
         console.log(res);
@@ -84,8 +84,7 @@ export default {
   methods:{
       //忘记密码
       forgetPassWord(){
-          //this.$router.push('/forgetPassWord');
-          //this.common.push('/forgetPassWord',{id:1});
+          this.$router.push('/forgetPassWord');
       },
       //去主页
       toHome(){
@@ -208,6 +207,8 @@ export default {
         color: #757575;
         font-size: 14px;
         text-indent: 20px;
+        height: 44px;
+        background-color: transparent;
       }
     }
     .loginInput:last-child {
