@@ -37,12 +37,16 @@
                 </div>
             </div>
 
+            <div class="up-message">Here,Show Something about you</div>
 
             <!--内容信息-->
             <div class="list-body">
-                <div class="list-info" v-for="item in listNum" :key="item">
-                    <img src="../../static/img/sl.jpg" alt="">
+                <div class="list-body2" v-for="item1 in listNum1" :key="item1">
+                    <div class="list-info" v-for="item in listNum" :key="item">
+                        <img src="../../static/img/sl.jpg" alt="">
+                    </div>
                 </div>
+
             </div>
 
             <div class="loading" v-loading="loading"
@@ -67,7 +71,8 @@
         name: "userInfo",
         data(){
             return {
-                listNum:6,
+                listNum1:2,
+                listNum:3,
                 loading:true
             }
         },
@@ -93,7 +98,7 @@
                 if (innerHeight < (outerHeight + scrollTop)) {
                     //加载更多操作
                     console.log("loadmore");
-                    this.listNum += 6;
+                    this.listNum1 += 2;
 
                 }
             }
@@ -182,16 +187,29 @@
         margin-left: 0;
     }
 
+    .up-message{
+        border-top: 0.5px solid #717171;
+        border-bottom: 0.5px solid #717171;
+        height: 60px;
+        text-align: center;
+        line-height: 60px;
+        color: #717171;
+    }
+
+
     /*lists*/
     .list-body{
+        /*display: flex;
+        flex-wrap: wrap;*/
+    }
+    .list-body2{
         display: flex;
-        flex-wrap: wrap;
+        justify-content: space-between;
     }
 
     .list-info{
-        height: 350px;
-        width: 350px;
-        margin-left: 10px;
+        height: 358px;
+        width: 358px;
         margin-top: 10px;
         cursor: pointer;
         img{
