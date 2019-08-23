@@ -191,9 +191,11 @@
         border-top: 0.5px solid #717171;
         border-bottom: 0.5px solid #717171;
         height: 60px;
-        text-align: center;
         line-height: 60px;
+        //text-indent: 120px;
+        text-align: center;
         color: #717171;
+        cursor: pointer;
     }
 
 
