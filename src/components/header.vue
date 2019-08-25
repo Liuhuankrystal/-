@@ -1,54 +1,161 @@
 <template>
-  <div class='header'>
-    <div class="w1100 ">
-      <div class="left" >
-        <input v-if="search_show" type="text"  placeholder="搜索伙伴"/>
+  <div class="header">
+    <div class="w1100">
+      <div class="left">
+        <input v-if="search_show" type="text" placeholder="搜索伙伴" />
       </div>
 
-      <div class="title" v-if="title">
-        {{title}}
-      </div>
+      <div class="title" v-if="title">{{title}}</div>
 
       <div class="right">
         <div class="name">Bukin{{search_show}}</div>
         <div class="line"></div>
         <div class="gohome" @click="$router.push('/dynamic')">Home</div>
-        <div class="peple">
+        <div class="people" @mouseenter="peopleEnter()">
           <div class="num">8</div>
         </div>
-        <div class="news">
+        <div class="news" @mouseenter="newsEnter()">
           <div class="num">99</div>
         </div>
-        <div class="down">>></div>
+        <div class="pCenter" @mouseenter="pCenterEnter()">>></div>
+
+        <!-- people下拉 -->
+        <div class="linkCont" v-show="PeopleState" @mouseleave="peopleLeave()">
+          <ul>
+            <li>
+              <div class="ImgName">
+                <div class="img">
+                  <img src="../../static/img/sl.jpg" alt />
+                </div>
+                <div class="imgnames">
+                  <span class="nameWod">张伯卿</span>申请
+                  <span class="linkBlue">Link</span>成为连接者.
+                  <br />
+                  <span class="time">11.28 · 18:26</span>
+                </div>
+              </div>
+              <div class="choes">
+                <div class="yes">y</div>
+                <div class="no">x</div>
+              </div>
+            </li>
+          </ul>
+          <a href class="lookAll">查看所有</a>
+        </div>
+
+        <!-- news 下拉-->
+        <div class="newsCont" v-show="newsState"  @mouseleave="newsLeave()">
+          <ul>
+            <li>
+              <div class="ImgName">
+                <div class="img">
+                  <img src="../../static/img/sl.jpg" alt />
+                </div>
+                <div class="newsName">
+                  <div class="names">张伯卿  <span class="time">· 06:26PM</span></div>
+                  <div class="word">我很喜欢你的作品，很是不错。</div>
+                </div>
+              </div>
+              <div class="readed">
+                <span></span>
+              </div>
+            </li>
+          </ul>
+          <a href class="lookAll">查看所有</a>
+        </div>
+
+        <!-- 个人中心 下拉 -->
+        <div class="pCenterCont" v-show="pCenterState" @mouseleave="pCenterLeave()">
+          <div class="titNum">
+            <div class="newsName">Linkers</div>
+            <div class="newsNum">1,246</div>
+          </div>
+          <div class="titNum">
+            <div class="newsName">Followers</div>
+            <div class="newsNum">1,246</div>
+          </div>
+          <div class="titNum">
+            <div class="newsName">个人设定</div>
+          </div>
+          <div class="titNum">
+            <div class="newsName">PlayList</div>
+          </div>
+          <div class="titNum">
+            <div class="newsName">退出</div>
+          </div>
+          <div class="talkTo">Talk To WoShuoXia</div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-    export default {
-        props:{
-            search_show:{
-                type:Boolean,
-                default:true
-            },
-            title:{
-                type:String,
-                default: null
-            }
-        }
+export default {
+  props: {
+    search_show: {
+      type: Boolean,
+      default: true
+    },
+    title: {
+      type: String,
+      default: null
     }
+  },
+  data() {
+    return {
+      PeopleState: false, //people
+      newsState: false, //news
+      pCenterState: false //个人中心
+    };
+  },
+
+  methods: {
+    //鼠标经过,people下拉显示
+    peopleEnter() {
+      this.PeopleState = true;
+      this.newsState = false;
+      this.pCenterState = false;
+    },
+    //鼠标离开,people下拉隐藏
+    peopleLeave() {
+      this.PeopleState = false;
+    },
+
+    //鼠标经过,新闻下拉显示
+    newsEnter() {
+      this.newsState = true;
+      this.PeopleState = false;
+      this.pCenterState = false;
+    },
+    //鼠标离开，新闻下拉隐藏
+    newsLeave() {
+      this.newsState = false;
+    },
+
+    //鼠标经过，个人中心下拉显示
+    pCenterEnter() {
+      this.pCenterState = true;
+      this.PeopleState = false;
+      this.newsState = false;
+    },
+    //鼠标离开，个人中心下拉隐藏
+    pCenterLeave() {
+      this.pCenterState = false;
+    }
+  }
+};
 </script>
 
 <style scoped lang='less'  rel="stylesheet/less">
 @import "../assets/css/index.less";
 
 .header {
-    background: #fff;
-   padding: 8px 0;
-  border-bottom:1px #DEDEDE solid;
-  .w1100{
-      .flexSBetween;
+  background: #fff;
+  padding: 8px 0;
+  border-bottom: 1px #dedede solid;
+  .w1100 {
+    .flexSBetween;
   }
   .left {
     input {
@@ -60,7 +167,7 @@
     }
   }
 
-  .title{
+  .title {
     font-weight: 600;
     height: 24px;
     line-height: 24px;
@@ -68,40 +175,217 @@
   }
 
   .right {
-      *{
-          margin-left: 20px;
+    position: relative;
+
+    // people下拉
+    .linkCont {
+      width: 374px;
+      background: #fff;
+      box-shadow: 0px 2px 4px 0px rgba(153, 152, 152, 1);
+      position: absolute;
+      top: 38px;
+      right: 22px;
+      z-index: 10;
+
+      ul {
+        li {
+          border-bottom: 1px solid #e0e0e0;
+          padding: 14px;
+          .flexSBetween;
+          .ImgName {
+            .flexStart;
+            .img {
+              width: 42px;
+              height: 42px;
+              margin-right: 16px;
+              img {
+                width: 42px;
+                height: 42px;
+                .border-radius(50%);
+              }
+            }
+            .imgnames {
+              color: #000;
+              font-size: 14px;
+              .nameWod {
+                font-weight: bold;
+              }
+              .linkBlue {
+                color: #157ecf;
+              }
+              .time {
+                color: #919191;
+              }
+            }
+          }
+          .choes {
+            .flexStart;
+            .yes,
+            .no {
+              width: 20px;
+              height: 20px;
+              text-align: center;
+              color: #fff;
+              .border-radius(50%);
+            }
+            .yes {
+              background: #1fa9f0;
+              margin-right: 20px;
+            }
+            .no {
+              background: #d1d1d1;
+            }
+          }
+        }
       }
+      .lookAll {
+        color: #2d6281;
+        font-size: 14px;
+        text-align: center;
+        padding: 19px 0;
+        display: block;
+      }
+    }
+    //消息
+    .newsCont {
+      width: 374px;
+      background: #fff;
+      box-shadow: 0px 2px 4px 0px rgba(153, 152, 152, 1);
+      position: absolute;
+      top: 38px;
+      right: 22px;
+      z-index: 10;
+      ul {
+        li {
+          border-bottom: 1px solid #e0e0e0;
+          padding: 14px;
+          .flexSBetween;
+          .ImgName {
+            .flexStart;
+            .img {
+              width: 42px;
+              height: 42px;
+              margin-right: 16px;
+              img {
+                width: 42px;
+                height: 42px;
+                .border-radius(50%);
+              }
+            }
+
+            .newsName {
+              .names {
+                color: #1d1d1d;
+                font-size: 14px;
+              }
+              .time {
+                color: #7f7f7f;
+              }
+              .word{
+                color: #7F7F7F;
+                font-size:14px;
+                .oneLines;
+              }
+            }
+          }
+          .readed{
+            span{
+              width:10px;
+              height:10px;
+              display: inline-block;
+              background:#3799F5;
+              border-radius:50%;
+            }
+          }
+        }
+      }
+       .lookAll {
+        color: #2d6281;
+        font-size: 14px;
+        text-align: center;
+        padding: 19px 0;
+        display: block;
+      }
+    }
+
+    //news 下拉
+    .pCenterCont {
+      width: 266px;
+      background: #fff;
+      box-shadow: 0px 2px 4px 0px rgba(153, 152, 152, 1);
+      position: absolute;
+      top: 38px;
+      right: 22px;
+      z-index: 10;
+      padding: 16px;
+      .titNum {
+        margin-bottom: 22px;
+
+        .flexSBetween;
+
+        .newsName,
+        .newsNum {
+          width: 50%;
+          font-size: 16px;
+        }
+        .newsName {
+          color: #1d1d1d;
+        }
+        .newsNum {
+          color: #7F7F7Fs;
+        }
+      }
+      .talkTo {
+        color: #1d1d1d;
+        font-size: 16px;
+        padding-top: 22px;
+        display: block;
+
+        border-top: 1px solid #e5e5e5;
+      }
+    }
     .flexEnd;
     .name {
       color: #2c2c2c;
       font-size: 14px;
+      margin-left: 20px;
     }
     .line {
       background: #e2e2e2;
       width: 2px;
       height: 24px;
+      margin-left: 20px;
     }
-    .gohome{
-        color: #2C2C2C;
-        font-size: 14px;
+    .gohome {
+      color: #2c2c2c;
+      font-size: 14px;
       cursor: pointer;
+      margin-left: 20px;
     }
-    .gohome:hover{
+    .gohome:hover {
       text-decoration: underline;
     }
-    .peple,.news {
+
+    .people,
+    .news {
       background: #2e4756;
       width: 18px;
       height: 18px;
       position: relative;
+      margin-left: 20px;
+      cursor: pointer;
       .num {
-          .positionART(-10px,-10px);
-          background:#FF0000;
-          border-radius:7px;
-          color: #fff;
-          font-size: 12px;
-          padding: 2px 5px;
+        .positionART(-10px, -10px);
+        background: #ff0000;
+        border-radius: 7px;
+        color: #fff;
+        font-size: 12px;
+        padding: 2px 5px;
       }
+    }
+    .pCenter {
+      margin-left: 20px;
+      cursor: pointer;
     }
   }
 }
