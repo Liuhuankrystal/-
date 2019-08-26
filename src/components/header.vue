@@ -92,10 +92,15 @@
     </div>
     <!--反馈提交-->
     <div class="talk-body" v-show="talkShow" @click.self="talkHide()">
-      <div class="talk-content">
+
+      <div v-if="talkStatus == 1" class="talk-content">
         <textarea placeholder="请告诉我们您发现有什么新的想法或者您在使用woshuoxia(我说下)服务的时候有什么问题及建
 议，您的反馈我们都会详细阅读，并且将会采纳和处理，谢谢您的支持!"></textarea>
-        <div class="talkSub">发 送</div>
+        <div class="talkSub" @click.stop="talkSub()">发 送</div>
+      </div>
+      <div v-else class="talk-message">
+        <i class="el-icon-check"></i>
+        <div>反馈成功，woshuoxia(我说下)团队将会详细阅读并处理问题和建议。</div>
       </div>
     </div>
   </div>
@@ -124,7 +129,8 @@ export default {
       pCenterState: false, //个人中心
         talkContent:null,
         showWord:true,
-        talkShow:false
+        talkShow:true,
+        talkStatus:2,//1输入框 2=提示信息
     };
   },
 
@@ -142,9 +148,13 @@ export default {
       //反馈
       talkTo(){
           this.talkShow=true;
+          this.talkStatus=1;
       },
       talkHide(){
         this.talkShow=false;
+      },
+      talkSub(){
+        this.talkStatus=2;//提示信息
       },
     //鼠标经过,people下拉显示
     peopleEnter() {
@@ -482,6 +492,34 @@ export default {
 
       }
     }
-
+    .talk-message{
+      width:719px;
+      height:170px;
+      background:rgba(255,255,255,1);
+      border-radius:10px;
+      margin-top: -300px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      i{
+        width: 118px;
+        height: 118px;
+        border-radius: 50%;
+        margin-left: 20px;
+        text-align: center;
+        line-height: 118px;
+        color: white;
+        background-color: #4DD113;
+        font-size: 65px;
+      }
+      div{
+        font-size:16px;
+        font-family:Microsoft YaHei;
+        font-weight:400;
+        color:rgba(28,28,28,1);
+        line-height:24px;
+        margin-left: 10px;
+      }
+    }
   }
 </style>

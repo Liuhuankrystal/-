@@ -2,7 +2,7 @@
     <div>
         <Topheader :keyword="keyword"></Topheader>
         <div class="w1100">
-            <div class="list-body" v-for="item in 10" :key="item">
+            <div class="list-body" v-for="item in 3" :key="item">
                 <div class="title">张伯卿</div>
                 <div class="user-spk">Sr Engineering Manager</div>
                 <div class="user-keyword">
