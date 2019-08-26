@@ -36,11 +36,11 @@
         </div>
       </div>
 
-      <div v-if="isSelf">
-        <div class="up-message" @click="ons()">Here,Show Something about you</div>
+      <div v-if="isSelf" @click="ons()">
+        <div class="up-message">Here,Show Something about you</div>
       </div>
 
-      <div class="upLoadMsg">
+      <div v-else class="upLoadMsg">
         <div class="upImg">
           <div class="addImg">
             <el-upload
@@ -169,7 +169,7 @@ export default {
     },
 
     ons() {
-      this.$message("发布个人展示待布局");
+      this.isSelf=false;
     },
     //加载跟多
     onScroll() {
