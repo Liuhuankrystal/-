@@ -10,7 +10,19 @@
         <div class="head-right-body">
           <div class="info-title">
             <div class="info-name">穆风杰</div>
-            <div class="info-set">编辑个人设定</div>
+            <div class="info-set" v-if="isSelf">编辑个人设定</div>
+            <!--他人的-->
+            <div class="info-link-follow" v-else>
+              <div class="info-link">
+                <img src="../../static/img/logo.png" alt="">
+                <div>Link</div>
+              </div>
+
+              <div class="info-follow">
+                <img src="../../static/img/logo.png" alt="">
+                <div>Follow</div>
+              </div>
+            </div>
           </div>
 
           <div class="info-spk">
@@ -36,32 +48,37 @@
         </div>
       </div>
 
-      <div v-if="isSelf" @click="ons()">
-        <div class="up-message">Here,Show Something about you</div>
-      </div>
-
-      <div v-else class="upLoadMsg">
-        <div class="upImg">
-          <div class="addImg">
-            <el-upload
-              class="avatar-uploader"
-              action="https://jsonplaceholder.typicode.com/posts/"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload"
-            >
-              <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-
-            <div class="word">添加图片</div>
-          </div>
-          <div class="fromWord">
-            <textarea placeholder="你有什么事？" name id cols="30" rows="10" v-model="upwords"></textarea>
-          </div>
+      <!--查看自己的显示才有发布-->
+      <div v-if="isSelf">
+        <div v-if="selfStatus == 1" @click="ons()">
+          <div class="up-message">Here,Show Something about you</div>
         </div>
-        <div class="postBtton">Post</div>
+
+        <div v-else class="upLoadMsg">
+          <div class="upImg">
+            <div class="addImg">
+              <el-upload
+                      class="avatar-uploader"
+                      action="https://jsonplaceholder.typicode.com/posts/"
+                      :show-file-list="false"
+                      :on-success="handleAvatarSuccess"
+                      :before-upload="beforeAvatarUpload"
+              >
+                <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+                <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+              </el-upload>
+
+              <div class="word">添加图片</div>
+            </div>
+            <div class="fromWord">
+              <textarea placeholder="你有什么事？" name id cols="30" rows="10" v-model="upwords"></textarea>
+            </div>
+          </div>
+          <div class="postBtton">Post</div>
+        </div>
+
       </div>
+
 
       <!--内容信息-->
       <div class="list-body">
@@ -143,6 +160,7 @@ export default {
       listNum: 3,
       loading: true,
       isSelf: true,
+      selfStatus: 1,
       imgBigState:false,//弹窗
     };
   },
@@ -169,7 +187,7 @@ export default {
     },
 
     ons() {
-      this.isSelf=false;
+      this.selfStatus=2;//发布状态
     },
     //加载跟多
     onScroll() {
@@ -506,4 +524,29 @@ export default {
 .el-carousel__container {
   height: 770px !important;
 }
+
+.info-link-follow{
+  display: flex;
+  justify-content: flex-start;
+}
+
+  .info-link,.info-follow{
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 20px;
+    color: #187EB9;
+    align-items: center;
+    font-weight: 600;
+    cursor: pointer;
+    img{
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+    div:hover{
+      text-decoration: underline;
+    }
+  }
+
 </style>
