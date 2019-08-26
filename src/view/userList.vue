@@ -2,6 +2,7 @@
     <div>
         <Topheader :keyword="keyword"></Topheader>
         <div class="w1100">
+            <div class="num-body"> {{keyword}} 共有 16 条</div>
             <div class="list-body" v-for="item in 3" :key="item">
                 <div class="title">张伯卿</div>
                 <div class="user-spk">Sr Engineering Manager</div>
@@ -18,6 +19,20 @@
                         <span>· 27次高亮时刻</span>
                     </div>
                 </div>
+            </div>
+
+            <!--分页-->
+            <div class="page-body">
+                <div class="up-page">上一页</div>
+
+                <div class="num-page" :class="item == 1 ? 'act' : ''" v-for="item in 7" :key="item">
+                    {{item}}
+                </div>
+
+                <div class="next-page">
+                    下一页
+                </div>
+
             </div>
         </div>
     </div>
@@ -51,8 +66,16 @@
 <style scoped lang='less'  rel="stylesheet/less">
     @import "../assets/css/index.less";
 
+    .num-body{
+        font-size:14px;
+        font-family:Microsoft YaHei;
+        font-weight:400;
+        color:rgba(113,113,113,1);
+        line-height:54px;
+    }
+
     .list-body{
-        padding: 20px 0;
+        padding: 15px 0;
         .title{
             color: #227CBB;
             font-size: 18px;
@@ -86,6 +109,52 @@
                 color: #7F7F7F;
                 font-size: 14px;
             }
+        }
+    }
+
+    .page-body{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-top: 20px;
+        .up-page{
+            font-size:14px;
+            font-family:Microsoft YaHei;
+            font-weight:400;
+            color:rgba(127,127,127,1);
+            line-height:22px;
+            cursor: pointer;
+
+        }
+        .num-page{
+            width:28px;
+            height:28px;
+            line-height: 28px;
+            background:rgba(242,240,233,1);
+            border-radius:50%;
+            text-align: center;
+            color: #B1B1B1;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .num-page:hover{
+            background:rgba(242,240,233,0.7);
+        }
+        .next-page{
+            font-size:14px;
+            font-family:Microsoft YaHei;
+            font-weight:400;
+            color:rgba(127,127,127,1);
+            line-height:22px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        .act{
+            font-size:16px;
+            font-family:Microsoft YaHei;
+            font-weight:400;
+            color:rgba(65,65,65,1);
+            background: 0;
         }
     }
 
