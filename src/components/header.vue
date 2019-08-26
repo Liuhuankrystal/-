@@ -70,7 +70,7 @@
             <div class="newsName">Linkers</div>
             <div class="newsNum">1,246</div>
           </div>
-          <div class="titNum">
+          <div class="titNum" @click="$router.push('/follows')">
             <div class="newsName">Followers</div>
             <div class="newsNum">1,246</div>
           </div>

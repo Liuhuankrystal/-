@@ -13,6 +13,7 @@ import dynamicLeave from '../view/dynamicLeave'
 import userList from '../view/userList'
 import palyList from '../view/palyList'
 import linkers from '../view/linkers'
+import follows from '../view/follows'
 
 
 
@@ -73,6 +74,12 @@ export default new Router({
           path: '/linkers',
           name: 'Linkers',
           component: linkers
+      },
+      {
+          path: '/follows',
+          name: 'Follows',
+          component: follows
       }
+
   ]
 })
