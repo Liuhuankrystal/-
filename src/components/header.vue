@@ -66,7 +66,7 @@
 
         <!-- 个人中心 下拉 -->
         <div class="pCenterCont" v-show="pCenterState" @mouseleave="pCenterLeave()">
-          <div class="titNum">
+          <div class="titNum" @click="$router.push('/linkers')">
             <div class="newsName">Linkers</div>
             <div class="newsNum">1,246</div>
           </div>

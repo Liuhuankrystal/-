@@ -12,6 +12,7 @@ import interact from '../view/interact'
 import dynamicLeave from '../view/dynamicLeave'
 import userList from '../view/userList'
 import palyList from '../view/palyList'
+import linkers from '../view/linkers'
 
 
 
@@ -67,6 +68,11 @@ export default new Router({
           path: '/palyList',
           name: '播放记录',
           component: palyList
+      },
+      {
+          path: '/linkers',
+          name: 'Linkers',
+          component: linkers
       }
   ]
 })
