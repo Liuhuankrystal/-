@@ -11,6 +11,7 @@ import userInfo from '../view/userInfo'
 import interact from '../view/interact'
 import dynamicLeave from '../view/dynamicLeave'
 import userList from '../view/userList'
+import palyList from '../view/palyList'
 
 
 
@@ -61,6 +62,11 @@ export default new Router({
           path: '/userList',
           name: '搜索信息',
           component: userList
+      },
+      {
+          path: '/palyList',
+          name: '播放记录',
+          component: palyList
       }
   ]
 })

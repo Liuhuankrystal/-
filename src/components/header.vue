@@ -78,7 +78,7 @@
             <div class="newsName">个人设定</div>
           </div>
           <div class="titNum">
-            <div class="newsName">PlayList</div>
+            <div class="newsName" @click="$router.push('/palyList')">PlayList</div>
           </div>
           <div class="titNum" @click="loginOut()">
             <div class="newsName">退出</div>
