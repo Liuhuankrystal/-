@@ -80,7 +80,7 @@
           <div class="titNum">
             <div class="newsName">PlayList</div>
           </div>
-          <div class="titNum" @click="$router.push('/')">
+          <div class="titNum" @click="loginOut()">
             <div class="newsName">退出</div>
           </div>
           <div class="talkTo" @click="talkTo()">Talk To WoShuoXia</div>
@@ -129,12 +129,28 @@ export default {
       pCenterState: false, //个人中心
         talkContent:null,
         showWord:true,
-        talkShow:true,
-        talkStatus:2,//1输入框 2=提示信息
+        talkShow:false,
+        talkStatus:1,//1输入框 2=提示信息
     };
   },
 
   methods: {
+      //退出登陆
+      loginOut(){
+          let _this=this;
+          _this.$confirm('是否退出该账户?', '提示', {
+              confirmButtonText: '确定',
+              cancelButtonText: '取消',
+              type: 'warning'
+          }).then(() => {
+              localStorage.removeItem('_token');//清除缓存
+              localStorage.removeItem('userInfo');//清除缓存
+
+              _this.$router.push('/')
+          }).catch(() => {
+              console.log('取消退出');
+          });
+      },
       //搜索
       subKeyword(){
         let _this=this;
@@ -511,6 +527,7 @@ export default {
         color: white;
         background-color: #4DD113;
         font-size: 65px;
+        font-weight: 600;
       }
       div{
         font-size:16px;

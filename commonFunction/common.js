@@ -30,12 +30,11 @@ export default{
             console.log('请求失败：'+resp.status+','+resp.statusText);
         });
     },
-
+    //退出登陆
     loginOut:function () {
-        //清除缓存
-        console.log('out');
-        console.log(route);
-        //this.$router.push('/forgetPassWord')
+        localStorage.removeItem('_token');//清除缓存
+        localStorage.removeItem('userInfo');//清除缓存
+        _this.$router.push('/')
     }
 
 }
