@@ -83,8 +83,19 @@
           <div class="titNum" @click="$router.push('/')">
             <div class="newsName">退出</div>
           </div>
-          <div class="talkTo">Talk To WoShuoXia</div>
+          <div class="talkTo" @click="talkTo()">Talk To WoShuoXia</div>
         </div>
+
+
+
+      </div>
+    </div>
+    <!--反馈提交-->
+    <div class="talk-body" v-show="talkShow" @click.self="talkHide()">
+      <div class="talk-content">
+        <textarea placeholder="请告诉我们您发现有什么新的想法或者您在使用woshuoxia(我说下)服务的时候有什么问题及建
+议，您的反馈我们都会详细阅读，并且将会采纳和处理，谢谢您的支持!"></textarea>
+        <div class="talkSub">发 送</div>
       </div>
     </div>
   </div>
@@ -111,6 +122,9 @@ export default {
       PeopleState: false, //people
       newsState: false, //news
       pCenterState: false, //个人中心
+        talkContent:null,
+        showWord:true,
+        talkShow:false
     };
   },
 
@@ -124,6 +138,13 @@ export default {
                 keyword:_this.keyword
             }
         })
+      },
+      //反馈
+      talkTo(){
+          this.talkShow=true;
+      },
+      talkHide(){
+        this.talkShow=false;
       },
     //鼠标经过,people下拉显示
     peopleEnter() {
@@ -369,7 +390,11 @@ export default {
         display: block;
 
         border-top: 1px solid #e5e5e5;
+          cursor: pointer;
       }
+        .talkTo:hover{
+            text-decoration: underline;
+        }
     }
     .flexEnd;
     .name {
@@ -416,4 +441,47 @@ export default {
     }
   }
 }
+  .talk-body{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background:rgba(28,28,28,0.5);
+    z-index: 99;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    .talk-content{
+      width:719px;
+      height:460px;
+      background-color:white;
+      border-radius:10px;
+      z-index: 99;
+      text-align: center;
+      textarea {
+        color: #1d1d1d;
+        font-size: 14px;
+        outline: none;
+        resize: none;
+        border: none;
+        background: transparent;
+        margin-top:20px ;
+        width: 600px;
+        height: 360px;
+      }
+      .talkSub{
+        height:54px;
+        font-size:18px;
+        font-family:Microsoft YaHei;
+        font-weight:400;
+        color:rgba(22,101,147,1);
+        line-height:54px;
+        cursor: pointer;
+      }
+      .talkSub:hover{
+        color:rgba(22,101,147,0.7);
+
+      }
+    }
+
+  }
 </style>
