@@ -10,7 +10,7 @@
         <div class="head-right-body">
           <div class="info-title">
             <div class="info-name">穆风杰</div>
-            <div class="info-set" v-if="isSelf">编辑个人设定</div>
+            <div class="info-set" v-if="isSelf" @click="$router.push('/infoEditInfo')">编辑个人设定</div>
             <!--他人的-->
             <div class="info-link-follow" v-else>
               <div class="info-link">

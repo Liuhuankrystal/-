@@ -14,6 +14,7 @@ import userList from '../view/userList'
 import palyList from '../view/palyList'
 import linkers from '../view/linkers'
 import follows from '../view/follows'
+import infoEditInfo from '../view/infoEditInfo'
 
 
 
@@ -79,6 +80,11 @@ export default new Router({
           path: '/follows',
           name: 'Follows',
           component: follows
+      },
+      {
+          path: '/infoEditInfo',
+          name: '编辑信息',
+          component: infoEditInfo
       }
 
   ]
