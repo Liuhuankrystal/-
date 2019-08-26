@@ -61,7 +61,7 @@
               </div>
             </li>
           </ul>
-          <a href class="lookAll">查看所有</a>
+          <div  class="lookAll" @click="$router.push('/dynamicLeave')">查看所有</div>
         </div>
 
         <!-- 个人中心 下拉 -->
@@ -310,6 +310,10 @@ export default {
         text-align: center;
         padding: 19px 0;
         display: block;
+         cursor: pointer;
+       }
+      .lookAll:hover{
+        text-decoration: underline;
       }
     }
 
