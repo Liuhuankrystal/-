@@ -8,6 +8,7 @@ import forgetPassWord from '../view/forgetPassWord'
 import dynamic from '../view/dynamic'
 import debut from '../view/debut'
 import userInfo from '../view/userInfo'
+import interact from '../view/interact'
 
 
 
@@ -43,6 +44,11 @@ export default new Router({
           path: '/userInfo',
           name: '用户信息',
           component: userInfo
+      },
+      {
+          path: '/interact',
+          name: '互动消息',
+          component: interact
       }
   ]
 })

@@ -40,7 +40,7 @@
               </div>
             </li>
           </ul>
-          <a href class="lookAll">查看所有</a>
+          <div class="lookAll" @click="$router.push('/interact')">查看所有</div>
         </div>
 
         <!-- news 下拉-->
@@ -80,7 +80,7 @@
           <div class="titNum">
             <div class="newsName">PlayList</div>
           </div>
-          <div class="titNum">
+          <div class="titNum" @click="$router.push('/')">
             <div class="newsName">退出</div>
           </div>
           <div class="talkTo">Talk To WoShuoXia</div>
@@ -244,6 +244,10 @@ export default {
         text-align: center;
         padding: 19px 0;
         display: block;
+        cursor: pointer;
+      }
+      .lookAll:hover{
+        text-decoration: underline;
       }
     }
     //消息
@@ -277,6 +281,7 @@ export default {
               .names {
                 color: #1d1d1d;
                 font-size: 14px;
+
               }
               .time {
                 color: #7f7f7f;
@@ -330,6 +335,10 @@ export default {
         }
         .newsName {
           color: #1d1d1d;
+          cursor: pointer;
+        }
+        .newsName:hover{
+          text-decoration: underline;
         }
         .newsNum {
           color: #7F7F7Fs;
