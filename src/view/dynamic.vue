@@ -33,7 +33,7 @@
               </div>
             </div>
             <div class="fromWord">
-              <textarea placeholder="你有什么事？" id cols="30" rows="10" @input="postWordF" v-model="postWord"></textarea>
+              <textarea placeholder="你有什么事？" id cols="30" rows="10" v-model="postWord"></textarea>
             </div>
             <div class="post">
 

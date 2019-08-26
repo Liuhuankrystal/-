@@ -2,7 +2,7 @@
   <div class="header">
     <div class="w1100">
       <div class="left">
-        <input v-if="search_show" type="text" placeholder="搜索伙伴" />
+        <input v-if="search_show" v-model="keyword" v-on:keyup.enter="subKeyword()" type="text" placeholder="搜索伙伴" />
       </div>
 
       <div class="title" v-if="title">{{title}}</div>
@@ -100,17 +100,31 @@ export default {
     title: {
       type: String,
       default: null
-    }
+    },
+      keyword: {
+          type: String,
+          default: null
+      }
   },
   data() {
     return {
       PeopleState: false, //people
       newsState: false, //news
-      pCenterState: false //个人中心
+      pCenterState: false, //个人中心
     };
   },
 
   methods: {
+      //搜索
+      subKeyword(){
+        let _this=this;
+        this.$router.push({
+            path:'/userList',
+            query:{
+                keyword:_this.keyword
+            }
+        })
+      },
     //鼠标经过,people下拉显示
     peopleEnter() {
       this.PeopleState = true;

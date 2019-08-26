@@ -36,6 +36,10 @@
                             记者和大使的对话完美呈现了，“乌合之众”和“精英之师”之间的
                             看事物观点和角度的差异。既然都有错，那就都要认！就像家里…
                         </div>
+                        <div v-else class="audit-body">
+                            <div class="audit-yes">同意</div>
+                            <div class="audit-no">拒绝</div>
+                        </div>
 
                     </div>
 

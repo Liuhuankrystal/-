@@ -10,6 +10,7 @@ import debut from '../view/debut'
 import userInfo from '../view/userInfo'
 import interact from '../view/interact'
 import dynamicLeave from '../view/dynamicLeave'
+import userList from '../view/userList'
 
 
 
@@ -55,6 +56,11 @@ export default new Router({
           path: '/dynamicLeave',
           name: '留言消息',
           component: dynamicLeave
+      },
+      {
+          path: '/userList',
+          name: '搜索信息',
+          component: userList
       }
   ]
 })
