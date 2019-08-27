@@ -15,6 +15,7 @@ import palyList from '../view/palyList'
 import linkers from '../view/linkers'
 import follows from '../view/follows'
 import infoEditInfo from '../view/infoEditInfo'
+import pointTime from '../view/pointTime'
 
 
 
@@ -85,7 +86,13 @@ export default new Router({
           path: '/infoEditInfo',
           name: '编辑信息',
           component: infoEditInfo
+      },
+      {
+          path: '/pointTime',
+          name: '编辑信息',
+          component: pointTime
       }
+
 
   ]
 })

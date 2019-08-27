@@ -7,7 +7,9 @@
                 <!--头像信息-->
                 <div class="head-body">
                     <div class="head-img-body">
-                        <img class="head-img" src="../../static/img/head.png" alt="">
+                        <div class="head-img">
+                        <img  src="../../static/img/head.png" alt="">
+                        </div>
                         <i class="el-icon-camera-solid"></i>                    </div>
                     <div class="head-info">
                         <div class="title">Bukin</div>
@@ -218,9 +220,7 @@
             .head-img-body{
                 position: relative;
                 .head-img{
-                    width:160px;
-                    height:153px;
-                    position: relative;
+                     .imgNoCut(160px;153px);                   
                     top: -66px;
                     left: 20px;
                 }
