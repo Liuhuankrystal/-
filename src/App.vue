@@ -12,7 +12,7 @@ export default {
 <style  lang='less'  rel="stylesheet/less">
 @import './assets/css/index.less';
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+   font-family:Microsoft YaHei;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

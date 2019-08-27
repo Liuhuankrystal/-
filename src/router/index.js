@@ -15,6 +15,10 @@ import palyList from '../view/palyList'
 import linkers from '../view/linkers'
 import follows from '../view/follows'
 import infoEditInfo from '../view/infoEditInfo'
+import personBasic from '../view/personBasic'
+import personSafetyAndHealth from '../view/personSafetyAndHealth'
+import personShowVisiters from '../view/personShowVisiters'
+import personkeywords from '../view/personkeywords'
 import pointTime from '../view/pointTime'
 
 
@@ -88,11 +92,32 @@ export default new Router({
           component: infoEditInfo
       },
       {
+          path: '/personBasic',
+          name: '个人基本信息',
+          component: personBasic
+      },
+      {
+          path: '/personSafetyAndHealth',
+          name: '安全与健康',
+          component: personSafetyAndHealth
+      },
+      {
+          path: '/personShowVisiters',
+          name: '向访问者展示',
+          component: personShowVisiters
+      },
+      {
+          path: '/personkeywords',
+          name: '关键词',
+          component: personkeywords
+      },
+      {
           path: '/pointTime',
-          name: '编辑信息',
+          name: '关注',
           component: pointTime
       }
 
+      
 
   ]
 })
