@@ -29,6 +29,9 @@ ul {
   margin: 0;
   padding: 0;
 }
+li{
+  list-style: none;
+}
 
 .w1100 {
   width: 1100px;
@@ -92,6 +95,7 @@ ul {
   width: 100%;
 }
 
+
 //一行
 .oneLines {
   white-space: nowrap;
@@ -144,4 +148,14 @@ ul {
     left: 50%;
     transform: translate(-50%, -50%);
   }
+}
+// 遮罩
+.bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.5);
 }
