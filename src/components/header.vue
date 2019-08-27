@@ -83,9 +83,7 @@
           <div class="titNum" @click="loginOut()">
             <div class="newsName">退出</div>
           </div>
-          <div>
-              <el-button  @click="open2">点击打开 Message Box</el-button>
-          </div>
+          
           <div class="talkTo" @click="talkTo()">Talk To WoShuoXia</div>
         </div>
 
