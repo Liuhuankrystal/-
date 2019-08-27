@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Topheader :search_show="search_show" title="watch"></Topheader>
+    <headerTwo :search_show="search_show" title="watch"></headerTwo>
 
     <!-- for循环了， -->
     <div class="top-body">
@@ -178,10 +178,10 @@
 </template>
 
 <script>
-import Topheader from "../components/header"; //上传图片
+import headerTwo from "../components/headerTwo"; //上传图片
 export default {
   components: {
-    Topheader
+    headerTwo
   },
   name: "debut",
 
