@@ -4,7 +4,7 @@
 
     <div class="cont" v-if="view_type == 1">
       <div class="emailInput">
-        <input type="text" placeholder="请输入您的注册邮箱…" />
+        <input type="text" v-model="email" placeholder="请输入您的注册邮箱…" />
       </div>
 
       <div class="Btn cursor" @click="sendEmail()">
@@ -18,10 +18,10 @@
           祝今天开心愉快！
         </div>
       <div class="emailInput">
-        <input type="text" placeholder="请输入您邮箱中接收到的验证码" />
+        <input type="text" v-model="code" placeholder="请输入您邮箱中接收到的验证码" />
       </div>
       <div class="emailInput">
-        <input type="password" placeholder="请输入新密码" />
+        <input type="password" v-model="password" placeholder="请输入新密码" />
       </div>
 
       <div class="Btn cursor" @click="onSub()">
@@ -43,6 +43,9 @@
         name: "App",
         data() {
             return {
+                email:'',
+                code:'',
+                password:'',
                 view_type:1,
             };
         },
@@ -52,11 +55,34 @@
                 .setAttribute("style", "background-color:#fff");
         },
         methods:{
+            //发送验证码到邮件
             sendEmail(){
-                this.view_type=2;
+                let _this = this;
+                _this.common.request('api/user/forgetPassword',{email: _this.email},function (res) {
+                    if(res.status == 200){
+                        _this.$message({
+                            message: res.message,
+                            type: 'success',
+                            duration: 2500,
+                            center: true
+                        });
+                        _this.view_type=2;
+                    }
+                },'post');
             },
             onSub(){
-                this.view_type =3;
+                let _this = this;
+                _this.common.request('api/user/resetPassword',{email: _this.email,code:_this.code,password:_this.password},function (res) {
+                    if(res.status == 200){
+                        _this.$message({
+                            message: res.message,
+                            type: 'success',
+                            duration: 2500,
+                            center: true
+                        });
+                        _this.view_type =3;
+                    }
+                },'post');
             }
         }
     }
