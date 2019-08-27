@@ -30,7 +30,7 @@
           <div class="titNum">
             <div class="newsName" @click="$router.push('/palyList')">PlayList</div>
           </div>
-          <div class="titNum" @click="loginOut()">
+          <div class="titNum" @click="common.loginOutSure()">
             <div class="newsName">退出</div>
           </div>
           
@@ -85,23 +85,6 @@ export default {
   },
 
   methods: {
-      //退出登陆
-      loginOut(){
-          let _this=this;
-          _this.$confirm('是否退出该账户?', '提示', {
-              confirmButtonText: '确定',
-              cancelButtonText: '取消',
-              type: 'warning'
-          }).then(() => {
-              localStorage.removeItem('_token');//清除缓存
-              localStorage.removeItem('userInfo');//清除缓存
-
-              _this.$router.push('/')
-          }).catch(() => {
-              console.log('取消退出');
-          });
-      },
-
        open2() {
         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
           confirmButtonText: '确定',

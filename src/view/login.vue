@@ -6,13 +6,13 @@
         <div class="titWord">这里是您的开始</div>
         <div class="titRight">
           <div class="inputName">
-            <input v-model="name" placeholder="姓名/邮箱" />
+            <input type="text" v-model="login.email" placeholder="登陆邮箱" />
           </div>
           <div class="inputPassWord">
-            <input placeholder="密码" v-model="passWord" show-password />
+            <input type="password" placeholder="登陆密码" v-model="login.password" show-password />
           </div>
           <div class="question" title="忘记密码？" @click="forgetPassWord()">?</div>
-          <div class="loginBtn" @click="toHome()">登录</div>
+          <div class="loginBtn" @click="loginSub()">登录</div>
         </div>
       </div>
     </div>
@@ -30,13 +30,13 @@
           建良好的体验在努力持续的改进中，谢谢您对我们的支持！
         </div>
         <div class="loginInput">
-          <input type="text" v-model="name" placeholder="真实姓名" />
+          <input type="text" v-model="reg.name" placeholder="真实姓名" />
         </div>
         <div class="loginInput">
-          <input type="text" v-model="email" placeholder="常用邮箱" />
+          <input type="text" v-model="reg.email" placeholder="常用邮箱" />
         </div>
         <div class="loginInput">
-          <input type="password" v-model="passWord" placeholder="密码" />
+          <input type="password" v-model="reg.password" placeholder="密码" />
         </div>
         <div class="loginButton" @click="toUploadPhoto()">我要注册</div>
 
@@ -64,21 +64,23 @@ export default {
   },
   data() {
     return {
-      name: "",
-      email: "",
-      passWord: ""
+        login:{
+            email: "hcy.php@qq.com",
+            password: "123456"
+        },
+        reg:{
+            name: "",
+            email: "",
+            password: ""
+        }
+
     };
   },
   created(){
-      //this.$message('这是一条消息提示');
       let _this=this;
-      //console.log(this.$router);
-
-      //_this.common.loginOut();
-      //接口请求
-    /*this.common.request('api/user/login',{id:1},function (res) {
-        console.log(res);
-    },'post');*/
+      if(_this.common.isLogin()){
+          _this.toHome();
+      }
   }
 ,
   methods:{
@@ -87,13 +89,28 @@ export default {
           this.$router.push('/forgetPassWord');
       },
       //去主页
-      toHome(){
-          this.$router.push({
-              path:'/dynamic',
-              query:{
-                  id:1
+      loginSub(){
+          //调用接口
+          let _this=this;
+          _this.common.request('api/user/login',_this.login,function (res) {
+              console.log(res);
+              if(res.status == 200){
+                  localStorage.setItem('_token',res.data['user-token']);
+                  localStorage.setItem('userInfo',res.data);
+                  _this.$message({
+                      message: res.message,
+                      type: 'success',
+                      duration: 1500,
+                      center: true,
+                      onClose:function (res) {
+                         _this.toHome();
+                      }
+                  });
               }
-          })
+          },'post');
+      },
+      toHome(){
+          this.$router.push('/dynamic')
       },
       //注册
       toUploadPhoto(){
