@@ -83,6 +83,9 @@
           <div class="titNum" @click="loginOut()">
             <div class="newsName">退出</div>
           </div>
+          <div>
+              <el-button  @click="open2">点击打开 Message Box</el-button>
+          </div>
           <div class="talkTo" @click="talkTo()">Talk To WoShuoXia</div>
         </div>
 
@@ -90,6 +93,7 @@
 
       </div>
     </div>
+
     <!--反馈提交-->
     <div class="talk-body" v-show="talkShow" @click.self="talkHide()">
 
@@ -150,6 +154,24 @@ export default {
           }).catch(() => {
               console.log('取消退出');
           });
+      },
+
+       open2() {
+        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
       },
       //搜索
       subKeyword(){
