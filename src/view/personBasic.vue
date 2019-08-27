@@ -10,13 +10,57 @@
             <div class="save">保存</div>
           </div>
         </li>
+
         <li>
           <span>您的真实姓名：</span>
           <div class="name">张伯卿</div>
         </li>
         <li>
           <span>常住城市：</span>
-          <div></div>
+          <div class="cityAll">
+             <div class="city">
+            <el-select v-model="value" placeholder="请选择">
+              <el-option
+                v-for="item in cities"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+                <span style="float: left">{{ item.label }}</span>
+                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span>
+              </el-option>
+            </el-select>
+          </div>
+          <div class="cityName">市</div>
+          <div class="city">
+            <el-select v-model="value" placeholder="请选择">
+              <el-option
+                v-for="item in cities"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+                <span style="float: left">{{ item.label }}</span>
+                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span>
+              </el-option>
+            </el-select>
+          </div>
+          <div class="cityName">省</div>
+          <div class="city">
+            <el-select v-model="value" placeholder="请选择">
+              <el-option
+                v-for="item in cities"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              >
+                <span style="float: left">{{ item.label }}</span>
+                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span>
+              </el-option>
+            </el-select>
+          </div>
+          <div class="cityName">国籍</div>
+          </div>
         </li>
         <li>
           <span>个人网站：</span>
@@ -39,7 +83,35 @@ export default {
   name: "debut",
 
   data() {
-    return {};
+    return {
+      cities: [
+        {
+          value: "Beijing",
+          label: "北京"
+        },
+        {
+          value: "Shanghai",
+          label: "上海"
+        },
+        {
+          value: "Nanjing",
+          label: "南京"
+        },
+        {
+          value: "Chengdu",
+          label: "成都"
+        },
+        {
+          value: "Shenzhen",
+          label: "深圳"
+        },
+        {
+          value: "Guangzhou",
+          label: "广州"
+        }
+      ],
+      value: ""
+    };
   }
 };
 </script>
@@ -73,12 +145,20 @@ export default {
         background: #188ddf;
         .border-radius(13px);
         margin-left: 60px;
-         cursor: pointer;
+        cursor: pointer;
       }
     }
   }
   li.top {
     .flexSBetween;
+  }
+}
+.cityAll{
+  .flexStart;
+  .cityName{
+    color: #353535;
+    font-size: 15px;
+    margin: 0 15px;
   }
 }
 </style>

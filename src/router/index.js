@@ -19,6 +19,7 @@ import personBasic from '../view/personBasic'
 import personSafetyAndHealth from '../view/personSafetyAndHealth'
 import personShowVisiters from '../view/personShowVisiters'
 import personkeywords from '../view/personkeywords'
+import recommend from '../view/recommend'
 import pointTime from '../view/pointTime'
 
 
@@ -110,6 +111,11 @@ export default new Router({
           path: '/personkeywords',
           name: '关键词',
           component: personkeywords
+      },
+      {
+          path: '/recommend',
+          name: '关键词',
+          component: recommend
       },
       {
           path: '/pointTime',

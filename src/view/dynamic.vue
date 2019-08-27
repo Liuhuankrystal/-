@@ -133,11 +133,11 @@
             <div class="allPeople">
               <div class="icon">11</div>
               <div class="name">
-                <a href>王茜、</a>
-                <a href>Eterian、</a>
-                <a href>Lillian、</a>
+                <router-link to="/recommend">王茜、</router-link>
+                <router-link to="/recommend">Eterian、</router-link>
+                <router-link to="/recommend">Lillian、</router-link>
                 <span>and</span>
-                <a href class="sixPeople">6 others为您推荐</a>
+                <router-link to="/recommend" class="sixPeople">6 others为您推荐</router-link>
                 <span>ta们会不会是有料的伙伴呢？感兴趣就“Link”吧，相信你会遇见开心！</span>
               </div>
             </div>
@@ -145,12 +145,12 @@
             <div class="HLight">
               <div class="icon"></div>
               <div class="HLightName">
-                <div class="name">Highlight 大赏</div>
+                <router-link to="/pointTime" class="name">Highlight 大赏</router-link>
                 <div class="HLightImgNum">
                   <div class="HLightImg">
-                    <img src="../../static/img/sl.jpg" alt />
-                    <img src="../../static/img/sl.jpg" alt />
-                    <img src="../../static/img/sl.jpg" alt />
+                    <router-link to="/pointTime"><img src="../../static/img/sl.jpg" alt /></router-link>
+                    <router-link to="/pointTime"><img src="../../static/img/sl.jpg" alt /></router-link>
+                    <router-link to="/pointTime"><img src="../../static/img/sl.jpg" alt /></router-link>
                   </div>
                   <div class="HLightNum">1,286</div>
                 </div>
@@ -589,11 +589,14 @@ body {
         font-size: 14px;
         color: #166593;
         margin-bottom: 14px;
+        display: inline-block;
+        
       }
     }
     .HLightImgNum {
       .flexStart;
       .HLightImg {
+        margin-left: 17px;
         img {
           width: 34px;
           height: 34px;
