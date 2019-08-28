@@ -36,6 +36,7 @@
     </div>
     <div class="loginWord cursor" @click="$router.go(-1)">我要登录</div>
   </div>
+  
 </template>
 
 <script>
