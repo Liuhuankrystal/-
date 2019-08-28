@@ -1,6 +1,6 @@
 <template>
   <div class="forgetPW">
-    <img class="bg" src="../../static/img/forget.png" alt />
+    <img class="bgImg" src="../../static/img/forget.png" alt />
 
     <div class="cont" v-if="view_type == 1">
       <div class="emailInput">
@@ -93,7 +93,7 @@
 .forgetPW {
   width: 600px;
   margin: 50px auto 0;
-  .bg {
+  .bgImg {
     width: 600px;
     height: 450px;
   }

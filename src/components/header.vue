@@ -458,10 +458,10 @@ export default {
       .num {
         .positionART(-10px, -10px);
         background: #ff0000;
-        border-radius: 7px;
+        border-radius:13px;
         color: #fff;
         font-size: 12px;
-        padding: 2px 5px;
+        padding: 2px 6px;
       }
     }
     .pCenter {
