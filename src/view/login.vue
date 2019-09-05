@@ -65,8 +65,8 @@ export default {
   data() {
     return {
         login:{
-            email: "hcy.php@qq.com",
-            password: "123456"
+            email: "",
+            password: ""
         },
         reg:{
             name: "",
@@ -96,7 +96,7 @@ export default {
               console.log(res);
               if(res.status == 200){
                   localStorage.setItem('_token',res.data['user-token']);
-                  localStorage.setItem('userInfo',res.data);
+                  localStorage.setItem('userInfo',JSON.stringify(res.data));
                   _this.$message({
                       message: res.message,
                       type: 'success',
@@ -114,7 +114,15 @@ export default {
       },
       //注册
       toUploadPhoto(){
-          this.$router.push('/uploadPhoto');
+          let _this = this;
+          _this.common.request('api/user/checkRegister',_this.reg,function (res) {
+              if(res.status == 200){
+                  _this.$router.push({
+                      name:'uploadPhoto',
+                      params:_this.reg
+                  });
+              }
+          },'post')
       }
   }
   ,

@@ -5,9 +5,13 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI);
 
+import VueCropper from 'vue-cropper' 
+Vue.use(VueCropper)
+
 import router from './router'
 import Vue from 'vue'
 import App from './App.vue'
+
 
 
 //引入公共js

@@ -8,13 +8,13 @@
             <span class="left">搜索到您的关键词：</span>
             <div class="right">
               <router-link to="/infoEditInfo" class="back">返回个人设定</router-link>
-              <div class="save">保存</div>
+              <div class="save" @click="onSave()">保存</div>
             </div>
           </li>
         </ul>
 
         <div class="keyWord">
-          <router-link to='' class="keys" v-for="item in 50" :key='item'>K*产品设计</router-link>
+          <textarea name=""  v-model="userKeyword" cols="30" rows="10" placeholder="关键词"></textarea>
         </div>
       </div>
     </div>
@@ -29,8 +29,31 @@ export default {
   name: "debut",
 
   data() {
-    return {};
-  }
+    return {
+        userKeyword:''
+    };
+  },
+    created(){
+      this.userKeyword=this.$route.params.keyword;
+    },
+    methods:{
+        onSave(){
+            let _this=this;
+            _this.common.request('api/user/upKeyword',{keyword:_this.userKeyword},function (res) {
+                if(res.status == 200){
+                    _this.$message({
+                        message: res.message,
+                        type: 'success',
+                        duration: 1500,
+                        center: true,
+                        onClose:function (res) {
+                            _this.$router.go(-1);
+                        }
+                    });
+                }
+            },'post')
+        }
+    }
 };
 </script>
 <style scoped lang='less'  rel="stylesheet/less">
@@ -72,17 +95,16 @@ export default {
     .flexSBetween;
   }
 }
-
-.keyWord {
-  padding:20px;
-  background: #f3f3f3;
-  line-height:30px;
-  .keys{
-    color: #1d1d1d;
-    font-size: 17px;
-    margin-right: 10px;
-    font-weight: bold;
-
-  }
+.keyWord textarea{
+  color: #333;
+  font-size: 14px;
+  outline: none;
+  border: none;
+  background: #F3F3F3;
+  padding:1%;
+  width: 98%;
+  resize: none;
 }
+
+
 </style>

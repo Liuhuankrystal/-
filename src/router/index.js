@@ -21,6 +21,10 @@ import personShowVisiters from '../view/personShowVisiters'
 import personkeywords from '../view/personkeywords'
 import recommend from '../view/recommend'
 import pointTime from '../view/pointTime'
+import seeinterflow from '../view/seeinterflow'
+import editorBoard from '../view/editorBoard'
+import editHead from '../view/editHead'
+import huifu from '../view/huifu'
 
 
 
@@ -34,94 +38,114 @@ export default new Router({
     },
     {
       path: '/uploadPhoto',
-      name: '上传头像',
+      name: 'uploadPhoto',
       component: uploadPhoto
     },
     {
       path: '/dynamic',
-      name: '动态事务',
+      name: 'dynamic',
       component: dynamic
     },
     {
       path: '/forgetPassWord',
-      name: '忘记密码',
+      name: 'forgetPassWord',
       component: forgetPassWord
     },
       {
           path: '/debut',
-          name: 'Debut',
+          name: 'debut',
           component: debut
       },
       {
           path: '/userInfo',
-          name: '用户信息',
+          name: 'userInfo',
           component: userInfo
       },
       {
           path: '/interact',
-          name: '互动消息',
+          name: 'interact',
           component: interact
       },
       {
           path: '/dynamicLeave',
-          name: '留言消息',
+          name: 'dynamicLeave',
           component: dynamicLeave
       },
       {
           path: '/userList',
-          name: '搜索信息',
+          name: 'userList',
           component: userList
       },
       {
           path: '/palyList',
-          name: '播放记录',
+          name: 'palyList',
           component: palyList
       },
       {
           path: '/linkers',
-          name: 'Linkers',
+          name: 'linkers',
           component: linkers
       },
       {
           path: '/follows',
-          name: 'Follows',
+          name: 'follows',
           component: follows
       },
       {
           path: '/infoEditInfo',
-          name: '编辑信息',
+          name: 'infoEditInfo',
           component: infoEditInfo
       },
       {
           path: '/personBasic',
-          name: '个人基本信息',
+          name: 'personBasic',
           component: personBasic
       },
       {
           path: '/personSafetyAndHealth',
-          name: '安全与健康',
+          name: 'personSafetyAndHealth',
           component: personSafetyAndHealth
       },
       {
           path: '/personShowVisiters',
-          name: '向访问者展示',
+          name: 'personShowVisiters',
           component: personShowVisiters
       },
       {
           path: '/personkeywords',
-          name: '关键词',
+          name: 'personkeywords',
           component: personkeywords
       },
       {
           path: '/recommend',
-          name: '关键词',
+          name: 'recommend',
           component: recommend
       },
       {
           path: '/pointTime',
-          name: '关注',
+          name: 'pointTime',
           component: pointTime
-      }
+      },
+      {
+          path: '/seeinterflow',
+          name: '查看发言',
+          component: seeinterflow
+      },
+      {
+          path: '/editorBoard',
+          name: 'editorBoard',
+          component: editorBoard
+      },
+      {
+          path: '/editHead',
+          name: 'editHead',
+          component: editHead
+      },
+      {
+          path: '/huifu',
+          name: 'huifu',
+          component: huifu
+      },
 
       
 

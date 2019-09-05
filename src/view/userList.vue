@@ -2,34 +2,35 @@
     <div>
         <Topheader :keyword="keyword"></Topheader>
         <div class="w1100">
-            <div class="num-body"> {{keyword}} 共有 16 条</div>
-            <div class="list-body" v-for="item in 3" :key="item">
-                <div class="title">张伯卿</div>
-                <div class="user-spk">Sr Engineering Manager</div>
+            <div class="num-body"> {{keyword}} 共有 {{userNum}} 条</div>
+            <div class="list-body" v-for="(vo,key) in list" :key="vo.id" @click="toUserInfo(vo.id)">
+                <div class="title">{{vo.name}}</div>
+                <div class="user-spk">{{vo.keyword}}</div>
                 <div class="user-keyword">
-                    每个人在Facebook上的表达为对另一个人的“馈赠”。在这种各式各样的有益交流中，你的付出
-                    得到了回报，通常是种连锁反应，通过这种相互的贡献和交流，你可以从别处知道一些你从不知
-                    晓的东西。
+                    {{vo.swfu}} - {{vo.swfu_year}}
+                </div>
+                <div class="user-keyword">
+                    {{vo.zyly}} - {{vo.zyly_year}}
                 </div>
                 <div class="user-count">
-                    <img src="../../static/img/logo.png" alt="">
+                    <img :src="vo.head_url" alt="">
                     <div>
-                        <span>互联网 · 成都</span>
-                        <span>1,286 Post</span>
-                        <span>· 27次高亮时刻</span>
+                        <span>{{vo.area_text}}</span>
+                        <span>{{vo.posts}} Post</span>
+                        <span>· {{vo.highlight_num}}次高亮时刻</span>
                     </div>
                 </div>
             </div>
 
             <!--分页-->
             <div class="page-body">
-                <div class="up-page">上一页</div>
+                <div class="up-page" v-if="page > 1" @click="upPage()">上一页</div>
 
-                <div class="num-page" :class="item == 1 ? 'act' : ''" v-for="item in 7" :key="item">
+                <div class="num-page" @click="getFyList(item)" :class="item == page ? 'act' : ''" v-for="item in pageNum" :key="item">
                     {{item}}
                 </div>
 
-                <div class="next-page">
+                <div class="next-page" v-if="page < pageNum" @click="nextPage()">
                     下一页
                 </div>
 
@@ -47,11 +48,29 @@
         },
         data() {
             return {
-                keyword: 'sbv'
+                keyword: '',
+                userNum:0,
+                page:1,
+                page_num:this.common.pageNum(),
+                list:[]
             };
+        },
+        watch:{
+            // 方法1
+            '$route' (to, from) { //监听路由是否变化
+                //获取文章数据
+                this.keyword=this.$route.query.keyword;//
+                this.getList();
+            }
+        },
+        computed:{
+            pageNum:function () {
+              return Math.ceil(this.userNum/this.page_num);
+            }
         },
         created() {
             this.keyword=this.$route.query.keyword;//
+            this.getList();
         },
         mounted() {
             document
@@ -59,7 +78,66 @@
                 .setAttribute("style", "background-color:#fff");
         },
         //方法定义
-        methods: {}
+        methods: {
+            //去用户信息
+            toUserInfo(id){
+                let _this=this;
+
+                _this.common.request('api/user/onClickKeyword',{id:id},function (res) {},'post');//点击用户
+                _this.$router.push({
+                    path:'/userInfo',
+                    query:{
+                        id:id
+                    }
+                });
+            },
+            //获取list
+            getList(){
+                let _this=this;
+                _this.page=1;
+                let data={
+                    page:_this.page,
+                    page_num:_this.page_num,
+                    keyword:_this.keyword
+                };
+                _this.common.request('api/user',data,function (res) {
+                    if(res.status == 200){
+                        _this.list=res.data.list;
+                        _this.userNum=res.data.num;
+                    }
+                })
+            },
+            upPage(){
+              let _this=this;
+              if(_this.page>1){
+                  _this.page--;
+                  _this.getFyList(_this.page)
+              }
+            },
+            nextPage(){
+                let _this=this;
+                if(_this.page < _this.pageNum){
+                    _this.page++;
+                    _this.getFyList(_this.page)
+                }
+            },
+            //分页
+            getFyList(page){
+                let _this=this;
+                _this.page=page;
+                let data={
+                    page:_this.page,
+                    page_num:_this.page_num,
+                    keyword:_this.keyword
+                };
+                _this.common.request('api/user',data,function (res) {
+                    if(res.status == 200){
+                        _this.list=res.data.list;
+                        _this.userNum=res.data.num;
+                    }
+                })
+            }
+        }
     }
 </script>
 
@@ -74,8 +152,11 @@
         line-height:54px;
     }
 
+    .list-body:hover{
+    }
     .list-body{
         padding: 15px 0;
+        cursor: pointer;
         .title{
             color: #227CBB;
             font-size: 18px;
@@ -103,6 +184,7 @@
             img{
                 width: 16px;
                 height: 16px;
+                border-radius: 50%;
             }
             span{
                 margin-left: 8px;
@@ -154,7 +236,7 @@
             font-family:Microsoft YaHei;
             font-weight:400;
             color:rgba(65,65,65,1);
-            background: 0;
+            background:rgba(242,240,233,0.5);
         }
     }
 

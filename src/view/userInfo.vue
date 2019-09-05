@@ -1,47 +1,45 @@
 <template>
   <div>
     <Topheader></Topheader>
-    <div class="w1100" :class="imgBigState==true?'imgBigTan':''">
+    <div class="w1100">
       <div class="top-content">
         <div class="head-body">
-          <img src="../../static/img/head.png" alt />
+          <img :src="userInfo.head_url" alt />
         </div>
 
         <div class="head-right-body">
           <div class="info-title">
-            <div class="info-name">穆风杰</div>
+            <div class="info-name">{{userInfo.name}}</div>
             <div class="info-set" v-if="isSelf" @click="$router.push('/infoEditInfo')">编辑个人设定</div>
             <!--他人的-->
             <div class="info-link-follow" v-else>
-              <div class="info-link">
-                <img src="../../static/img/logo.png" alt="">
-                <div>Link</div>
+              <div class="info-link" @click="onLink()">
+                <img src="../../static/img/logo.png" alt />
+                <div v-if="userInfo.is_link">解除Link</div>
+                <div v-else>Link</div>
               </div>
 
-              <div class="info-follow">
-                <img src="../../static/img/logo.png" alt="">
-                <div>Follow</div>
+              <div class="info-follow" @click="onFollow()">
+                <img src="../../static/img/logo.png" alt />
+                <div v-if="userInfo.is_follow">解除Follow</div>
+                <div v-else>Follow</div>
               </div>
             </div>
           </div>
 
-          <div class="info-spk">
-            Instagram 是捕捉和分享世界精彩瞬间的简单方式。只需关注，即可借他人之眼来捕捉
-            全球的精彩瞬间，并从中发现趣味。超过 10 亿用户选择了 Instagram，速速加入他们，
-            用照片和视频拍下不一样的每一天，用影像传达个性符号吧！
-          </div>
+          <div class="info-spk">{{userInfo.introduce}}</div>
 
           <div class="info-count">
             <div class="info-cou">
-              <div class="count-num">1,266</div>
+              <div class="count-num">{{userInfo.posts}}</div>
               <div class="count-spk">Posts</div>
             </div>
             <div class="info-cou">
-              <div class="count-num">12.6K</div>
+              <div class="count-num">{{userInfo.interflows}}</div>
               <div class="count-spk">Interflows</div>
             </div>
             <div class="info-cou">
-              <div class="count-num">18.6M</div>
+              <div class="count-num">{{userInfo.searched}}</div>
               <div class="count-spk">Searched</div>
             </div>
           </div>
@@ -53,16 +51,15 @@
         <div v-if="selfStatus == 1" @click="ons()">
           <div class="up-message">Here,Show Something about you</div>
         </div>
-
+        <!--发布信息-->
         <div v-else class="upLoadMsg">
           <div class="upImg">
             <div class="addImg">
               <el-upload
-                      class="avatar-uploader"
-                      action="https://jsonplaceholder.typicode.com/posts/"
-                      :show-file-list="false"
-                      :on-success="handleAvatarSuccess"
-                      :before-upload="beforeAvatarUpload"
+                class="avatar-uploader"
+                :action="common.uploadUrl()"
+                :show-file-list="false"
+                :on-success="handleAvatarSuccess"
               >
                 <img v-if="imageUrl" :src="imageUrl" class="avatar" />
                 <i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -71,23 +68,20 @@
               <div class="word">添加图片</div>
             </div>
             <div class="fromWord">
-              <textarea placeholder="你有什么事？" name id cols="30" rows="10" v-model="upwords"></textarea>
+              <textarea placeholder="你有什么事？" name id cols="30" rows="10" v-model="subInfo.content"></textarea>
             </div>
           </div>
-          <div class="postBtton">Post</div>
-        </div>
-
-      </div>
-
-
-      <!--内容信息-->
-      <div class="list-body">
-        <div class="list-body2" v-for="item1 in listNum1" :key="item1">
-          <div class="list-info" v-for="item in listNum" :key="item"  @click='bigImg()'>
-            <img src="../../static/img/sl.jpg"  alt />
-          </div>
+          <div class="postBtton" @click="subPost()">Post</div>
         </div>
       </div>
+
+      <div class="imgList">
+        <div class="Img" v-for="(item,key) in imgList" :key="item.id" @click="bigImg(key)">
+          <img :src="item.img_url" alt />
+        </div>
+      </div>
+
+    
 
       <div
         class="loading"
@@ -100,47 +94,46 @@
 
     <div class="bg" v-show="imgBigState" @click="clsoeImgBig()"></div>
     <div class="imgBig" v-show="imgBigState">
-      <el-carousel arrow="always" height="770px" autoplay="false">
-        <el-carousel-item v-for="item in 1" :key="item">
+         
           <div class="imgBigAll">
+             <div class="leftArrow" v-if="showKey > 0" @click="upClick()">上一页</div>
+             <div class="rightArrow" v-if="showKey < imgList.length-1" @click="nextClick()">下一页</div>
             <div class="imgBigR">
-              <img src="../../static/img/sl.jpg" alt />
+              <el-image style="width: 616px; height: 770px" :src="showInfo.info.img_url"></el-image>
+              <!-- <img src="../../static/img/sl.jpg" alt /> -->
             </div>
             <div class="imgBigL">
               <div class="bigName">
                 <div class="img">
-                  <img src="../../static/img/sl.jpg" alt />
+                  <img :src="showInfo.info.head_url" alt />
                 </div>
-                <div class="name">Bukin</div>
+                <div class="name">{{showInfo.info.user_name}}</div>
               </div>
               <div class="word">
-                观看你最喜欢的 Instagram 创作者发布的纵向长视频。IGTV 带给用户
-                的体验有别于与一般的视频。IGTV 视频是纵向且全屏的，侧边没有任何
-                黑框，因此，你无需旋转自己的手机。而且，这些视频并未限制为一分钟
-                ，这意味着你可以看到更多喜欢的内容。
+                {{showInfo.info.content}}
               </div>
-              <div class="wordNum">全部16条发言</div>
+              <div class="wordNum" @click="toSeeinterflow(showInfo.info.id)">全部{{showInfo.info.leave_num}}条发言</div>
               <ul class="talkWord">
-                <li v-for="item in 5" :key="item">
-                  <span class="name">Mr.Msh</span>
-                  只能现拍太局限了，很多以前拍的长视频如果可以导入处理的话那就非常棒了，期待更新的那一天！
+                <li v-for="item in showInfo.leaveList" :key="item.id">
+                  <span class="name">{{item.user_name}}</span>
+                  {{item.content}}
                 </li>
               </ul>
 
               <div class="HightLight">
                 <div class="HightLightNum">
-                  <img src alt />
-                  <span>2,888次Highlight</span>
+                  <img v-if="showInfo.info.is_highlight" src alt @click="onHighlight()" />
+                  <img v-else src alt @click="onHighlight()" />
+                  <span>{{showInfo.info.highlight_num}}次Highlight</span>
                 </div>
-                <div class="time">10.16 at 08:20PM 2019</div>
+                <div class="time">{{showInfo.info.create_time}}</div>
               </div>
               <div class="interFlow">
-                <input type="text" placeholder="Interflow…" />
+                <input type="text" v-model="content" v-on:keyup.enter="subInterflow()" placeholder="Interflow…" />
               </div>
             </div>
           </div>
-        </el-carousel-item>
-      </el-carousel>
+       
     </div>
   </div>
 </template>
@@ -156,38 +149,222 @@ export default {
   name: "userInfo",
   data() {
     return {
+      id: null,
       listNum1: 2,
       listNum: 3,
-      loading: true,
-      isSelf: true,
+      isSelf: false,
       selfStatus: 1,
-      imgBigState:false,//弹窗
+      imgBigState: false, //弹窗
+      imageUrl: "",
+      userInfo: {},
+      page: 1,
+      page_num: 6,
+      loading: false,
+      loadingType: 0, //0=可以加载 1=加载中 2=已加载完毕
+      imgList: [], //图片列表,
+      subInfo: {
+        content: "",
+        imgs_id: "",
+        type: 3
+      },
+        showKey:0,//放大的数据,
+        isGetShow:true,//是否可以请求
+        showInfo:{
+            info:{},
+            leaveList:[]
+        },
+        content:null
     };
   },
   mounted() {
     document
       .querySelector("body")
-      .setAttribute("style", "background-color:#F6F6F6");
+      .setAttribute("style", "background-color:#fff");
   },
   created() {
+    this.id = this.$route.query.id;
+    this.getInfo();
+    this.getImgList(); //获取图片列表
     window.addEventListener("scroll", this.onScroll);
   },
   methods: {
+      toSeeinterflow(id){
+          this.$router.push({
+              path:'/seeinterflow',
+              query:{
+                  id:id
+              }
+          })
+      },
+      //留言
+      subInterflow(){
+        let _this=this;
+        let data={
+            dynamic_id:_this.imgList[_this.showKey].id,
+            content:_this.content
+        };
+        _this.common.request('api/dynamicLeave/interflow',data,function (res) {
+              if(res.status == 200){
+                  _this.$message({
+                      message: res.message,
+                      type: 'success',
+                      duration: 1500,
+                      center: true,
+                      onClose:function (res) {
+                      }
+                  });
+                  _this.showInfo.info.leave_num=res.data.leave_num;
+                  _this.showInfo.leaveList=res.data.leaveList;//更新发言
+                  _this.content=null;
+              }
+        },'post')
+      },
+    //发布个人主页信息
+    subPost() {
+      let _this = this;
+      _this.common.request(
+        "api/dynamic/add",
+        _this.subInfo,
+        function(res) {
+          if (res.status == 200) {
+            _this.$message({
+              message: res.message,
+              type: "success",
+              duration: 1500,
+              center: true,
+              onClose: function(res) {
+                _this.subInfo = {
+                  content: "",
+                  imgs_id: "",
+                  type: 3
+                };
+                _this.imageUrl = null;
+                _this.getImgList();
+              }
+            });
+          }
+        },
+        "post"
+      );
+    },
+    //获取个人主页图片列表
+    getImgList() {
+      let _this = this;
+      _this.page = 1;
+      let data = {
+        id: _this.id,
+        page: _this.page,
+        page_num: _this.page_num
+      };
+      _this.common.request("api/dynamic/userHomeList", data, function(res) {
+        if (res.status == 200) {
+          _this.imgList = res.data.list;
+        }
+      });
+    },
+    //获取信息
+    getInfo() {
+      let _this = this;
+      _this.common.request("api/user/info", { id: _this.id }, function(res) {
+        if (res.status == 200) {
+          _this.userInfo = res.data;
+          _this.isSelf = res.data.is_self;
+        }
+      });
+    },
+    //link操作
+    onLink() {
+      let _this = this;
+      _this.common.request(
+        "api/userLinker/handel",
+        { id: _this.id },
+        function(res) {
+          if (res.status == 200) {
+            _this.userInfo.is_link = !_this.userInfo.is_link;
+            _this.$message({
+              message: res.message,
+              type: "success",
+              duration: 2500,
+              center: true,
+              onClose: function(res) {}
+            });
+          }
+        },
+        "post"
+      );
+    },
+    //follow操作
+    onFollow() {
+      let _this = this;
+      _this.common.request(
+        "api/userFollow/handel",
+        { id: _this.id },
+        function(res) {
+          if (res.status == 200) {
+            _this.userInfo.is_follow = !_this.userInfo.is_follow;
+            _this.$message({
+              message: res.message,
+              type: "success",
+              duration: 2500,
+              center: true,
+              onClose: function(res) {}
+            });
+          }
+        },
+        "post"
+      );
+    },
     //上传图片
     handleAvatarSuccess(res, file) {
+      this.subInfo.imgs_id = res.data.id;
       this.imageUrl = URL.createObjectURL(file.raw);
     },
-    //显示大图
-    bigImg(){
-        this.imgBigState=true;
+      //点击高光
+      onHighlight(){
+        let _this=this;
+        let id = _this.imgList[_this.showKey].id;
+        _this.common.request('api/dynamic/highlight',{id:id},function (res) {
+            if(res.status == 200){
+                _this.showInfo.info.highlight_num=res.data.highlight_num;//
+            }
+        },'post')
+      },
+      //上一页
+      upClick(){
+        if(this.showKey>0){
+            this.bigImg(this.showKey-1);//上一页
+        }
+      },
+      //下一页
+      nextClick(){
+        if(this.showKey < this.imgList.length -1){
+            this.bigImg(this.showKey+1);//上一页
+        }
+      },
+    //显示弹窗
+    bigImg(obj) {
+        let _this=this;
+        let id=_this.imgList[obj].id;
+
+        //不能请求
+        if(!_this.isGetShow){
+            return;
+        }
+        _this.isGetShow=false;
+        _this.common.request('api/dynamic/grInfo',{id:id},function (res) {
+            _this.isGetShow=true;
+            _this.imgBigState = true;
+            _this.showInfo=res.data;
+            _this.showKey=obj;
+        });
     },
-    //关闭大图
-    clsoeImgBig(){
-         this.imgBigState=false;
+    //关闭弹窗
+    clsoeImgBig() {
+      this.imgBigState = false;
     },
 
     ons() {
-      this.selfStatus=2;//发布状态
+      this.selfStatus = 2; //发布状态
     },
     //加载跟多
     onScroll() {
@@ -198,11 +375,33 @@ export default {
       //可滚动容器超出当前窗口显示范围的高度
       let scrollTop = document.documentElement.scrollTop;
       //scrollTop在页面为滚动时为0，开始滚动后，慢慢增加，滚动到页面底部时，出现innerHeight < (outerHeight + scrollTop)的情况，严格来讲，是接近底部。
-      console.log(innerHeight + " " + outerHeight + " " + scrollTop);
-      if (innerHeight < outerHeight + scrollTop) {
-        //加载更多操作
-        console.log("loadmore");
-        this.listNum1 += 2;
+
+      if (innerHeight <= outerHeight + scrollTop) {
+        let _this = this;
+        if (_this.loadingType != 0) {
+          return;
+        }
+        _this.loadingType = 1;
+        _this.loading = true;
+        _this.page++;
+        let list = [];
+        let data = {
+          id: _this.id,
+          page: _this.page,
+          page_num: _this.page_num
+        };
+        _this.common.request("api/dynamic/userHomeList", data, function(res) {
+          if (res.status == 200) {
+            list = res.data.list; //请求数据
+            _this.loading = false;
+            if (res.data.list_num <= 0) {
+              _this.loadingType = 2;
+              return;
+            }
+            _this.imgList = _this.imgList.concat(list);
+            _this.loadingType = 0;
+          }
+        });
       }
     }
   }
@@ -350,6 +549,10 @@ export default {
     font-size: 14px;
     text-align: center;
     border-radius: 13px;
+    cursor: pointer;
+  }
+  .postBtton:hover {
+    background: rgba(24, 141, 223, 0.7);
   }
 }
 
@@ -380,6 +583,7 @@ export default {
   background-color: #f6f6f6;
 }
 
+// 弹窗
 .imgBig {
   position: fixed;
   top: 50%;
@@ -394,13 +598,22 @@ export default {
   }
 
   .imgBigAll {
-    .flexSBetween;
+    .leftArrow,.rightArrow{
+      position: absolute;
+      top: 50%;
+      margin-top: -10px;
+      background: #fff;
+      color: #000;
+      font-size:12px;
+      cursor: pointer;
+      padding:10px;
+    }
+    .leftArrow{   left: -60px;}
+    .rightArrow{right: -60px;}
+    display: flex;
+    justify-content: space-between;
     .imgBigR {
-      width: 616px;
-      height: 770px;
-      img {
-        width: 100%;
-      }
+      // .imgCut( 616px,770px);
     }
     .imgBigL {
       width: 472px;
@@ -434,9 +647,13 @@ export default {
         font-size: 14px;
         margin-top: 14px;
         margin-bottom: 29px;
+        cursor: pointer;
+      }
+      .wordNum:hover{
+        text-decoration: underline;
       }
       .talkWord {
-        height: 300px;
+        height: 340px;
         overflow-y: auto;
         li {
           margin-bottom: 13px;
@@ -457,6 +674,7 @@ export default {
             height: 18px;
             background: #c6c6c6;
             margin-right: 14px;
+            cursor: pointer;
           }
           span {
             color: #27292a;
@@ -482,10 +700,11 @@ export default {
     }
   }
 }
-.imgBigTan{
-     position: fixed;
+.imgBigTan {
+  position: fixed;
   top: 0;
-  left: 0;
+      left: 50%;
+    margin-left: -550px;
 }
 
 // 上传图片
@@ -517,28 +736,47 @@ export default {
   height: 770px !important;
 }
 
-.info-link-follow{
+.info-link-follow {
   display: flex;
   justify-content: flex-start;
 }
 
-  .info-link,.info-follow{
-    display: flex;
-    justify-content: flex-start;
-    margin-left: 20px;
-    color: #187EB9;
-    align-items: center;
-    font-weight: 600;
-    cursor: pointer;
-    img{
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      margin-right: 5px;
-    }
-    div:hover{
-      text-decoration: underline;
-    }
+.info-link,
+.info-follow {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 20px;
+  color: #187eb9;
+  align-items: center;
+  font-weight: 600;
+  cursor: pointer;
+  img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 5px;
   }
+  div:hover {
+    text-decoration: underline;
+  }
+}
 
+/*图片list*/
+.imgList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: space-around;
+  margin-top: 10px;
+  .Img {
+    width: 330px;
+    height: 330px;
+    margin-right: 42px;
+    margin-bottom: 42px;
+    .imgNoCut(330px, 330px);
+  }
+  .Img:nth-child(3n) {
+    margin-right: 0;
+  }
+}
 </style>

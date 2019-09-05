@@ -7,55 +7,47 @@
           <span class="left">个人基本</span>
           <div class="right">
             <router-link to="/infoEditInfo" class="back">返回个人设定</router-link>
-            <div class="save">保存</div>
+            <div class="save" @click="onSave()">保存</div>
           </div>
         </li>
 
         <li>
           <span>您的真实姓名：</span>
-          <div class="name">张伯卿</div>
+          <div class="name inputW"><input type="text" v-model="userInfo.name" placeholder="请输入您的真实姓名"></div>
         </li>
         <li>
           <span>常住城市：</span>
           <div class="cityAll">
              <div class="city">
-            <el-select v-model="value" placeholder="请选择">
+            <el-select v-model="userInfo.province_id" @change="changeArea1" placeholder="请选择">
               <el-option
-                v-for="item in cities"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                v-for="item in area1List"
+                :key="item.id"
+                :label="item.areaname"
+                :value="item.id"
               >
-                <span style="float: left">{{ item.label }}</span>
-                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span>
-              </el-option>
-            </el-select>
-          </div>
-          <div class="cityName">市</div>
-          <div class="city">
-            <el-select v-model="value" placeholder="请选择">
-              <el-option
-                v-for="item in cities"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
-              >
-                <span style="float: left">{{ item.label }}</span>
-                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span>
+                {{item.areaname}}
               </el-option>
             </el-select>
           </div>
           <div class="cityName">省</div>
           <div class="city">
-            <el-select v-model="value" placeholder="请选择">
+            <el-select v-model="userInfo.city_id" placeholder="请选择">
               <el-option
-                v-for="item in cities"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value"
+                v-for="item in area2List"
+                :key="item.id"
+                :label="item.areaname"
+                :value="item.id"
               >
-                <span style="float: left">{{ item.label }}</span>
-                <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span>
+                {{item.areaname}}
+              </el-option>
+            </el-select>
+          </div>
+          <div class="cityName">市</div>
+          <div class="city">
+            <el-select v-model="userInfo.state" placeholder="请选择国籍">
+              <el-option v-for="(vo,key) in stateList" :label="vo" :key="key" :value="key">
+                {{vo}}
               </el-option>
             </el-select>
           </div>
@@ -64,11 +56,15 @@
         </li>
         <li>
           <span>个人网站：</span>
-          <div></div>
+          <div class="inputW">
+            <input type="text" v-model="userInfo.web_url" placeholder="写点吧！">
+          </div>
         </li>
         <li>
           <span>一项成就荣耀：</span>
-          <div></div>
+          <div class="inputW">
+            <input type="text" v-model="userInfo.achievement" placeholder="写点吧！">
+          </div>
         </li>
       </ul>
     </div>
@@ -84,35 +80,70 @@ export default {
 
   data() {
     return {
-      cities: [
-        {
-          value: "Beijing",
-          label: "北京"
-        },
-        {
-          value: "Shanghai",
-          label: "上海"
-        },
-        {
-          value: "Nanjing",
-          label: "南京"
-        },
-        {
-          value: "Chengdu",
-          label: "成都"
-        },
-        {
-          value: "Shenzhen",
-          label: "深圳"
-        },
-        {
-          value: "Guangzhou",
-          label: "广州"
-        }
-      ],
-      value: ""
+        userInfo:{},//基础信息
+        area1List:[],//省列表
+        area2List:[],//市列表
+        stateList:null,//国家列表
     };
-  }
+  },
+    created(){
+      this.userInfo=this.$route.params;
+      console.log(this.$route.params);
+        this.userInfo.state=this.userInfo.state.toString();
+        this.getAreaList();//获取省
+        if(this.userInfo.province_id){
+            this.getAreaList(this.userInfo.province_id);//获取市
+        }
+      this.getStatelList();//获取国家列表
+    },
+    methods:{
+      /*提交数据*/
+        onSave(){
+            let _this=this;
+            _this.common.request('api/user/upJbInfo',_this.userInfo,function (res) {
+                if(res.status == 200){
+                    _this.$message({
+                        message: res.message,
+                        type: 'success',
+                        duration: 1500,
+                        center: true,
+                        onClose:function (res) {
+                            _this.$router.go(-1);
+                        }
+                    });
+                }
+            },'post')
+        },
+        //获取省市
+        getAreaList(pid){
+          let _this=this;
+          pid = pid || null;
+          _this.common.request('api/area',{pid:pid},function (res) {
+              if(res.status == 200){
+                  if(pid){
+                      _this.area2List=res.data.list;
+                  }else {
+                      _this.area1List=res.data.list;
+                  }
+              }
+          })
+        },
+        //切换省
+        changeArea1(e){
+            this.getAreaList(e);
+            this.userInfo.city_id=null;
+        },
+        //获取国家列表
+        getStatelList(){
+            let _this=this;
+            _this.common.request('api/index/getStateList',{},function (res) {
+                if(res.status==200){
+                    _this.stateList=res.data;
+                    console.log(res);
+                }
+            })
+        }
+    }
 };
 </script>
 <style scoped lang='less'  rel="stylesheet/less">
@@ -129,6 +160,15 @@ export default {
       color: #7f7f7f;
       font-size: 16px;
     }
+    .inputW{
+      width: calc(100% - 120px);
+      input{
+      width: 100%;
+      color: #333;
+      font-size: 14px;
+    }
+    }
+    
     .right {
       .flexEnd;
       .back {

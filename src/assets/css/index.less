@@ -100,7 +100,7 @@ li{
 
 
 //一行
-.oneLines {
+.oneLines{
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -108,13 +108,24 @@ li{
 }
 
 //两行
-.twoLines {
+.twoLines{
   text-overflow: -o-ellipsis-lastline;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+//三行
+.thteeLines{
+  text-overflow: -o-ellipsis-lastline;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
 }
 

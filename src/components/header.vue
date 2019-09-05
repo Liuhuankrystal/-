@@ -2,77 +2,123 @@
   <div class="header">
     <div class="w1100">
       <div class="left">
-        <input v-if="search_show" v-model="keyword" v-on:keyup.enter="subKeyword()" type="text" placeholder="搜索伙伴" />
+        <input v-if="search_show" v-model="keywordSlef" v-on:keyup.enter="subKeyword()" type="text" placeholder="搜索伙伴" />
       </div>
 
       <div class="title" v-if="title">{{title}}</div>
 
       <div class="right">
-        <div class="name">Bukin{{search_show}}</div>
+        <div class="name">{{userInfo.email}}</div>
         <div class="line"></div>
         <div class="gohome" @click="$router.push('/dynamic')">Home</div>
         <div class="people" @mouseenter="peopleEnter()">
-          <div class="num">8</div>
+
+          <img v-if="PeopleState" src="../../static/icon/linkernoticon.png" alt="">
+          <img v-else-if="interact_num" src="../../static/icon/linkernoticin.png" alt="">
+          <img v-else src="../../static/icon/linkerTz.png" alt="">
+
+          <div class="num" v-if="interact_num">{{interact_num}}</div>
         </div>
         <div class="news" @mouseenter="newsEnter()">
-          <div class="num">99</div>
+
+          <img v-if="newsState" src="../../static/icon/internoticon.png" alt="">
+          <img v-else-if="message_num" src="../../static/icon/internoticin.png" alt="">
+          <img v-else src="../../static/icon/internotic.png" alt="">
+
+          <div class="num" v-if="message_num">{{message_num}}</div>
         </div>
-        <div class="pCenter" @mouseenter="pCenterEnter()">>></div>
+        <div class="pCenter" @mouseenter="pCenterEnter()">
+          <img v-if="pCenterState" src="../../static/icon/kuozhanon.png" alt="">
+          <img v-else src="../../static/icon/kuozhan.png" alt="">
+        </div>
 
         <!-- people下拉 -->
         <div class="linkCont" v-show="PeopleState" @mouseleave="peopleLeave()">
           <ul>
-            <li>
+
+            <li v-for="(vo,key) in interactList" :key="vo.id">
               <div class="ImgName">
                 <div class="img">
-                  <img src="../../static/img/sl.jpg" alt />
+                  <img :src="vo.head_url" alt />
                 </div>
+
                 <div class="imgnames">
-                  <span class="nameWod">张伯卿</span>申请
-                  <span class="linkBlue">Link</span>成为连接者.
-                  <br />
-                  <span class="time">11.28 · 18:26</span>
+                  <div v-if="vo.type == 2 && vo.status ==1">
+                    <span class="nameWod">{{vo.user_name}}</span>申请
+                    <span class="linkBlue">Link</span>成为连接者.
+                  </div>
+
+                  <div v-if="vo.type == 2 && vo.status ==2">
+                  <span class="nameWod">{{vo.user_name}}</span>
+                  成为 link ,开始互动吧！
+                  </div>
+
+                  <div v-if="vo.type == 2 && vo.status ==3">
+                    <span class="nameWod">{{vo.user_name}}</span>
+                    不能成为连接者，很抱歉！
+                  </div>
+
+                  <div v-if="vo.type == 1" style="cursor: pointer" @click="onInteract(key)">
+                    <span class="nameWod">{{vo.user_name}}</span>
+                    <span class="linkBlue">Make Highlight</span>
+                    您的事物
+                    <br/>
+                    <span v-if="vo.dynamic_type == 1">
+                      {{vo.dynamic_content}}
+                    </span>
+                  </div>
+                  <span class="time">{{vo.create_time}}</span>
+                  <br/>
+
                 </div>
+
               </div>
-              <div class="choes">
-                <div class="yes">y</div>
-                <div class="no">x</div>
+              <div class="choes" v-if="vo.type ==2 && vo.status==1">
+                <div class="yes" @click="onAudit(key,2)">y</div>
+                <div class="no" @click="onAudit(key,3)">x</div>
+              </div>
+
+              <div class="choes choesimg" style="cursor: pointer" v-if="vo.type ==1 && vo.dynamic_type!= 1" @click="onInteract(key)">
+                <img :src="vo.dynamic_img_url" alt="">
               </div>
             </li>
+
           </ul>
-          <div class="lookAll" @click="$router.push('/interact')">查看所有</div>
+          <div class="lookAll" @click="clickInteractAll()">查看所有</div>
         </div>
 
         <!-- news 下拉-->
         <div class="newsCont" v-show="newsState"  @mouseleave="newsLeave()">
           <ul>
-            <li>
+
+            <li v-for="(vo,key) in messageList" :key="vo.id" @click="toHuifu(key)">
               <div class="ImgName">
                 <div class="img">
-                  <img src="../../static/img/sl.jpg" alt />
+                  <img :src="vo.head_url" alt />
                 </div>
                 <div class="newsName">
-                  <div class="names">张伯卿  <span class="time">· 06:26PM</span></div>
-                  <div class="word">我很喜欢你的作品，很是不错。</div>
+                  <div class="names">{{vo.user_name}}  <span class="time">{{vo.create_time}}</span></div>
+                  <div class="word">{{vo.content}}</div>
                 </div>
               </div>
-              <div class="readed">
+              <div v-if="vo.is_read == 1" class="readed">
                 <span></span>
               </div>
             </li>
+
           </ul>
-          <div  class="lookAll" @click="$router.push('/dynamicLeave')">查看所有</div>
+          <div  class="lookAll" @click="clickMessageAll()">查看所有</div>
         </div>
 
         <!-- 个人中心 下拉 -->
         <div class="pCenterCont" v-show="pCenterState" @mouseleave="pCenterLeave()">
           <div class="titNum" @click="$router.push('/linkers')">
             <div class="newsName">Linkers</div>
-            <div class="newsNum">1,246</div>
+            <div class="newsNum">{{linkers}}</div>
           </div>
           <div class="titNum" @click="$router.push('/follows')">
             <div class="newsName">Followers</div>
-            <div class="newsNum">1,246</div>
+            <div class="newsNum">{{follows}}</div>
           </div>
           <div class="titNum" @click="$router.push('/infoEditInfo')">
             <div class="newsName">个人设定</div>
@@ -96,7 +142,7 @@
     <div class="talk-body" v-show="talkShow" @click.self="talkHide()">
 
       <div v-if="talkStatus == 1" class="talk-content">
-        <textarea placeholder="请告诉我们您发现有什么新的想法或者您在使用woshuoxia(我说下)服务的时候有什么问题及建
+        <textarea v-model="content" placeholder="请告诉我们您发现有什么新的想法或者您在使用woshuoxia(我说下)服务的时候有什么问题及建
 议，您的反馈我们都会详细阅读，并且将会采纳和处理，谢谢您的支持!"></textarea>
         <div class="talkSub" @click.stop="talkSub()">发 送</div>
       </div>
@@ -133,10 +179,106 @@ export default {
         showWord:true,
         talkShow:false,
         talkStatus:1,//1输入框 2=提示信息
+        userInfo:{},
+        content:'',
+        interact_num:0,//互动数量
+        message_num:0,//消息数量
+        page_num:6,//获取10条消息
+        messageList:[],//消息记录,
+        keywordSlef:this.keyword,
+        interactList:[],//互动记录
+        linkers:0,
+        follows:0,
     };
   },
+    created(){
+      this.userInfo=JSON.parse(localStorage.getItem('userInfo'));
+      this.getMessageNum();
+
+      let intervalA=localStorage.getItem('intervalA');//获取已有的定时器
+        if(intervalA){
+            clearInterval(intervalA);//清除定时器
+        }
+
+      localStorage.setItem('intervalA',setInterval(this.getMessageNum,3000));//5秒钟调用一次
+    },
 
   methods: {
+      //去看全部
+      toSeeinterflow(id){
+          let _this=this;
+          this.$router.push({
+              path:'/seeinterflow',
+              query:{
+                  id:id
+              }
+          });
+      },
+      //点击记录
+      onInteract(key){
+          let _this=this;
+          let id=_this.interactList[key].id;
+          this.toSeeinterflow(id)
+          _this.common.request('api/interact/onClick',{id:id},function (res) {},'post');
+      },
+      //去回复
+      toHuifu(key){
+        let _this=this;
+        if(_this.messageList[key].is_huifu == 2){
+            return;
+        }
+        _this.$router.push({
+            path:'/huifu',
+            query:{
+                id:_this.messageList[key].id
+            }
+        })
+      },
+      //查看所有互动
+      clickInteractAll(){
+        let _this=this;
+        _this.common.request('api/interact/clickAll',{},function (res) {});
+          _this.$router.push('/interact')
+      },
+      //查看所有消息
+      clickMessageAll(){
+          let _this=this;
+          _this.common.request('api/dynamicLeave/clickAll',{},function (res) {});
+          _this.$router.push('/dynamicLeave')
+      },
+      //审核linke
+      onAudit(key,status){
+          let _this=this;
+          let data={
+              id:_this.interactList[key].id,
+              status:status
+          };
+          _this.common.request('api/userLinker/audit',data,function (res) {
+              if(res.status == 200){
+                  _this.$message({
+                      message: res.message,
+                      type: 'success',
+                      duration: 1500,
+                      center: true,
+                      onClose:function (res) {
+                      }
+                  });
+                  _this.interactList[key]['status']=status;
+              }
+          },'post');
+      },
+      //获取消息数量
+      getMessageNum(){
+          let _this=this;
+          if(_this.common.isLogin()){
+              _this.common.request('api/index/messageNum',{},function (res) {
+                  if(res.status == 200){
+                      _this.interact_num=res.data.interact_num;
+                      _this.message_num=res.data.message_num;
+                  }
+              })
+          }
+      },
        open2() {
         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -157,12 +299,14 @@ export default {
       //搜索
       subKeyword(){
         let _this=this;
-        this.$router.push({
-            path:'/userList',
-            query:{
-                keyword:_this.keyword
-            }
-        })
+        if(_this.keywordSlef){
+            this.$router.push({
+                path:'/userList',
+                query:{
+                    keyword:_this.keywordSlef
+                }
+            })
+        }
       },
       //反馈
       talkTo(){
@@ -173,13 +317,24 @@ export default {
         this.talkShow=false;
       },
       talkSub(){
-        this.talkStatus=2;//提示信息
+          let _this=this;
+          this.common.request('api/feedback/add',{content:_this.content},function (res) {
+              if(res.status == 200){
+                  _this.talkStatus=2;//提示信息
+              }
+          },'post');
       },
     //鼠标经过,people下拉显示
     peopleEnter() {
       this.PeopleState = true;
       this.newsState = false;
       this.pCenterState = false;
+        let _this = this;
+        _this.common.request('api/interact',{page_num:_this.page_num},function (res) {
+            if(res.status == 200){
+                _this.interactList=res.data.list;
+            }
+        })
     },
     //鼠标离开,people下拉隐藏
     peopleLeave() {
@@ -191,6 +346,12 @@ export default {
       this.newsState = true;
       this.PeopleState = false;
       this.pCenterState = false;
+      let _this = this;
+      _this.common.request('api/dynamicLeave',{page_num:_this.page_num},function (res) {
+          if(res.status == 200){
+              _this.messageList=res.data.list;
+          }
+      })
     },
     //鼠标离开，新闻下拉隐藏
     newsLeave() {
@@ -202,6 +363,13 @@ export default {
       this.pCenterState = true;
       this.PeopleState = false;
       this.newsState = false;
+        let _this = this;
+        _this.common.request('api/user/getLinkerNum',{},function (res) {
+            if(res.status == 200){
+                _this.follows=res.data.follows;
+                _this.linkers=res.data.linkers;
+            }
+        })
     },
     //鼠标离开，个人中心下拉隐藏
     pCenterLeave() {
@@ -291,6 +459,7 @@ export default {
               text-align: center;
               color: #fff;
               .border-radius(50%);
+              cursor: pointer;
             }
             .yes {
               background: #1fa9f0;
@@ -298,6 +467,12 @@ export default {
             }
             .no {
               background: #d1d1d1;
+            }
+          }
+          .choesimg{
+            img{
+              width: 60px;
+              height: 60px;
             }
           }
         }
@@ -449,7 +624,10 @@ export default {
 
     .people,
     .news {
-      background: #2e4756;
+      img{
+        width: 100%;
+        height: 100%;
+      }
       width: 18px;
       height: 18px;
       position: relative;
@@ -458,10 +636,10 @@ export default {
       .num {
         .positionART(-10px, -10px);
         background: #ff0000;
-        border-radius:13px;
+        border-radius: 7px;
         color: #fff;
         font-size: 12px;
-        padding: 2px 6px;
+        padding: 2px 5px;
       }
     }
     .pCenter {

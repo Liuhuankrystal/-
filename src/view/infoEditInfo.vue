@@ -7,16 +7,16 @@
         <div class="head-body">
           <div class="head-img-body">
             <div class="head-img">
-              <img src="../../static/img/head.png" alt />
+              <img :src="allInfo.head_url" alt />
             </div>
-            <i class="el-icon-camera-solid"></i>
+            <i class="el-icon-camera-solid" @click="$router.push('/editHead')"></i>
           </div>
           <div class="head-info">
-            <div class="title">Bukin</div>
+            <div class="title">{{allInfo.name}}</div>
             <div class="head-count">
-              <span>1,266 Post</span>
-              <span>1,266 Linkers</span>
-              <span>1,266 Followers</span>
+              <span>{{allInfo.posts}} Post</span>
+              <span>{{allInfo.linkers}} Linkers</span>
+              <span>{{allInfo.follows}} Followers</span>
             </div>
           </div>
         </div>
@@ -25,28 +25,28 @@
         <div class="jb-info-body">
           <div class="jb-title">
             <div class="title">个人基本</div>
-            <router-link to="/personBasic" class="edit-btn">编辑</router-link>
+            <router-link :to="{name:'personBasic',params:{name:allInfo.name,web_url:allInfo.web_url,achievement:allInfo.achievement,state:allInfo.state,province_id:allInfo.province_id,city_id:allInfo.city_id}}" class="edit-btn">编辑</router-link>
           </div>
           <div class="jb-spk">说明居住城市、真实姓名、个人网站、成就荣耀；</div>
           <div class="jb-list-body">
             <img src="../../static/img/logo.png" alt />
-            <div>Live in 四川·成都 from China</div>
+            <div>Live in {{allInfo.area_text}} from {{allInfo.state_text}}</div>
           </div>
           <div class="jb-list-body">
             <img src="../../static/img/logo.png" alt />
-            <div>Registration time in 2019年07月28日 10:28AM</div>
+            <div>Registration time in {{allInfo.create_time}}</div>
           </div>
           <div class="jb-list-body">
             <img src="../../static/img/logo.png" alt />
-            <div>www.weibo.com can understand you.</div>
+            <div style="color: #3889c1" @click="common.openUrl(allInfo.web_url)">{{allInfo.web_url}}</div>
           </div>
           <div class="jb-list-body">
             <img src="../../static/img/logo.png" alt />
-            <div>Your achievement is 创建Woshuoxia</div>
+            <div>Your achievement is {{allInfo.achievement}}</div>
           </div>
           <div class="jb-list-body">
             <img src="../../static/img/logo.png" alt />
-            <div>You name is Bukin</div>
+            <div>You name is {{allInfo.name}}</div>
           </div>
         </div>
 
@@ -54,7 +54,7 @@
         <div class="jb-info-body">
           <div class="jb-title">
             <div class="title">安全与健康</div>
-            <router-link to="/personSafetyAndHealth" class="edit-btn">编辑</router-link>
+            <router-link :to="{name:'personSafetyAndHealth',params: {email:allInfo.email}}" class="edit-btn">编辑</router-link>
           </div>
           <div class="jb-list-body">
             <img src="../../static/img/logo.png" alt />
@@ -62,7 +62,7 @@
           </div>
           <div class="an-jk-list">
             <div class="title">邮箱</div>
-            <div class="info">hcy.php@qq.com</div>
+            <div class="info">{{allInfo.email}}</div>
           </div>
           <div class="an-jk-list">
             <div class="title">密码</div>
@@ -110,7 +110,15 @@
         <div class="jb-info-body">
           <div class="jb-title">
             <div class="title">向访问者展示</div>
-            <router-link to="/personShowVisiters" class="edit-btn">编辑</router-link>
+            <router-link :to="{name:'personShowVisiters',params:{
+            zyly:allInfo.zyly,
+            zyly_year:allInfo.zyly_year,
+            jnk:allInfo.jnk,
+            swfu:allInfo.swfu,
+            swfu_year:allInfo.swfu_year,
+            introduce:allInfo.introduce,
+            welcome:allInfo.welcome
+            }}" class="edit-btn">编辑</router-link>
           </div>
 
           <div class="jb-list-body">
@@ -118,7 +126,7 @@
             <div class="title-img">职业/研究领域</div>
             <div class="title-spk">用于推荐引用和搜索附言的展示</div>
           </div>
-          <div class="show-content">Since 2007 互联网产品经理执行</div>
+          <div class="show-content">{{allInfo.zyly}} - {{allInfo.zyly_year}}</div>
 
           <div class="jb-list-body">
             <img src="../../static/img/logo.png" alt />
@@ -127,14 +135,14 @@
           </div>
           <div
             class="show-content"
-          >前端Div+Css'2013、原型工具axure'2008、UI'2010、心理学'2010、客户端'2016、工程结构'2009</div>
+          >{{allInfo.jnk}}</div>
 
           <div class="jb-list-body">
             <img src="../../static/img/logo.png" alt />
             <div class="title-img">商业服务</div>
             <div class="title-spk">用于搜索副标的展示</div>
           </div>
-          <div class="show-content">Since 2007 互联网产品经理执行</div>
+          <div class="show-content">{{allInfo.swfu}} - {{allInfo.swfu_year}}</div>
 
           <div class="jb-list-body">
             <img src="../../static/img/logo.png" alt />
@@ -142,8 +150,7 @@
             <div class="title-spk">用于个人主页和搜索的展示</div>
           </div>
           <div class="show-content">
-            Instagram 是捕捉和分享世界精彩瞬间的简单方式。只需关注，即可借他人之眼来捕捉全球的精彩瞬间，并从中发现趣味。
-            超过 10 亿用户选择了 Instagram，速速加入他们，用照片和视频拍下不一样的每一天，用影像传达个性符号吧！
+            {{allInfo.introduce}}
           </div>
 
           <div class="jb-list-body">
@@ -151,14 +158,14 @@
             <div class="title-img">招呼语</div>
             <div class="title-spk">用于推荐引用</div>
           </div>
-          <div class="show-content">Hi , I am Zhangboqing , Call me Bukin.</div>
+          <div class="show-content">{{allInfo.welcome}}</div>
         </div>
 
         <!--关键词-->
         <div class="jb-info-body keyword-body">
           <div class="jb-title">
             <div class="title">索引种子</div>
-            <router-link to="/personkeywords" class="edit-btn">编辑</router-link>
+            <router-link :to="{name:'personkeywords',params:{keyword:allInfo.keyword}}" class="edit-btn">编辑</router-link>
           </div>
 
           <div class="jb-list-body">
@@ -166,7 +173,7 @@
             <div class="title-img">关键词</div>
             <div class="title-spk">用于woshuoxia搜索的蜘蛛爬抓</div>
           </div>
-          <div class="show-content">K*产品设计 K*互联网业务设计和品牌规划 K*Woshuoxia产品设计和规划 K*新产品开发和增长服务</div>
+          <div class="show-content">{{allInfo.keyword}}</div>
         </div>
       </div>
     </div>
@@ -182,12 +189,32 @@ export default {
   },
   data() {
     return {
-      keyword: ""
+      keyword: "",
+        allInfo:{}
     };
   },
-  created() {},
+  created() {
+      this.getInfo();
+  },
   //方法定义
-  methods: {}
+  methods: {
+      //获取信息
+      getInfo(){
+          let _this=this;
+          _this.common.request('api/user/allInfo',{},function (res) {
+              if(res.status == 200){
+                  _this.allInfo=res.data;
+                  let userInfo={
+                      email:_this.allInfo.email,
+                      head_url:_this.allInfo.head_url,
+                      name:_this.allInfo.name,
+                  };
+                  localStorage.setItem('userInfo',JSON.stringify(userInfo));
+                  console.log(res);
+              }
+          })
+      }
+  }
 };
 </script>
 
@@ -212,10 +239,11 @@ export default {
       }
       i {
         width: 25px;
-        height: 18px;
+        height: 25px;
+        background-color: rgba(225,225,225,0.5);
         position: absolute;
         right: -10px;
-        bottom: 45px;
+        bottom: 35px;
         color: white;
         font-size: 26px;
       }

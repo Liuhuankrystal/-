@@ -7,22 +7,25 @@
       <div class="title">watch</div>
 
       <div class="right">
-        <div class="name">Bukin{{search_show}}</div>
+        <div class="name">{{userInfo.email}}</div>
         <div class="line"></div>
         <div class="gohome" @click="$router.push('/dynamic')">Home</div>
-        <div class="gohome">Editor Board</div>
+        <router-link to="/editorBoard" class="gohome">Editor Board</router-link>
         <!-- 个人中心 -->
-        <div class="pCenter" @mouseenter="pCenterEnter()">>></div>
+        <div class="pCenter" @mouseenter="pCenterEnter()">
+          <img v-if="pCenterState" src="../../static/icon/kuozhanon.png" alt="">
+          <img v-else src="../../static/icon/kuozhan.png" alt="">
+        </div>
 
         <!-- 个人中心 下拉 -->
         <div class="pCenterCont" v-show="pCenterState" @mouseleave="pCenterLeave()">
           <div class="titNum" @click="$router.push('/linkers')">
             <div class="newsName">Linkers</div>
-            <div class="newsNum">1,246</div>
+            <div class="newsNum">{{linkers}}</div>
           </div>
           <div class="titNum" @click="$router.push('/follows')">
             <div class="newsName">Followers</div>
-            <div class="newsNum">1,246</div>
+            <div class="newsNum">{{follows}}</div>
           </div>
           <div class="titNum" @click="$router.push('/infoEditInfo')">
             <div class="newsName">个人设定</div>
@@ -44,7 +47,7 @@
     <div class="talk-body" v-show="talkShow" @click.self="talkHide()">
 
       <div v-if="talkStatus == 1" class="talk-content">
-        <textarea placeholder="请告诉我们您发现有什么新的想法或者您在使用woshuoxia(我说下)服务的时候有什么问题及建
+        <textarea v-model="content" placeholder="请告诉我们您发现有什么新的想法或者您在使用woshuoxia(我说下)服务的时候有什么问题及建
 议，您的反馈我们都会详细阅读，并且将会采纳和处理，谢谢您的支持!"></textarea>
         <div class="talkSub" @click.stop="talkSub()">发 送</div>
       </div>
@@ -74,6 +77,7 @@ export default {
   },
   data() {
     return {
+      userInfo:JSON.parse(localStorage.getItem('userInfo')),
       PeopleState: false, //people
       newsState: false, //news
       pCenterState: false, //个人中心
@@ -81,6 +85,9 @@ export default {
         showWord:true,
         talkShow:false,
         talkStatus:1,//1输入框 2=提示信息
+        content:'',
+        linkers:0,
+        follows:0,
     };
   },
 
@@ -121,7 +128,12 @@ export default {
         this.talkShow=false;
       },
       talkSub(){
-        this.talkStatus=2;//提示信息
+           let _this=this;
+           this.common.request('api/feedback/add',{content:_this.content},function (res) {
+              if(res.status == 200){
+                  _this.talkStatus=2;//提示信息
+              }
+           },'post');
       },
   
     //鼠标经过，个人中心下拉显示
@@ -129,6 +141,13 @@ export default {
       this.pCenterState = true;
       this.PeopleState = false;
       this.newsState = false;
+      let _this=this;
+        _this.common.request('api/user/getLinkerNum',{},function (res) {
+            if(res.status == 200){
+                _this.follows=res.data.follows;
+                _this.linkers=res.data.linkers;
+            }
+        })
     },
     //鼠标离开，个人中心下拉隐藏
     pCenterLeave() {

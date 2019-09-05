@@ -10,7 +10,7 @@
           </div>
           <div class="right">
             <router-link to="/infoEditInfo" class="back">返回个人设定</router-link>
-            <div class="save">保存</div>
+            <div class="save" @click="onSave()">保存</div>
           </div>
         </li>
         <li>
@@ -19,34 +19,26 @@
             <br />
             <div class="tips">暂不提供修改服务</div>
           </span>
-          <div class="name">张伯卿</div>
+          <div class="name inputW">{{email}}</div>
         </li>
         <li>
           <span>登录密码：</span>
-          <div class="pWord" v-show="inputType==false">
-            <div class="passwordState">
-              <div v-for="item in 10" :key="item"></div>
-            </div>
-            <div @click="fixedPassWord()" class="fixed">修改</div>
-          </div>
-          <div class="pWord" v-show="inputType==true">
-            <input type="text" placeholder="123123" />
-            <div @click="fixedPassWord()" class="fixed">取消修改</div>
+          <div class="pWord">
+            <input type="text" v-model="uoPwd.passwordOld" placeholder="请输入您的登陆密码" />
           </div>
         </li>
         <li>
           <span>新密码：</span>
           <div class="pWord">
-            <input type="text" placeholder="123456789sdgfsdfgsdfg" />
+            <input type="text" v-model="uoPwd.password" placeholder="请输入新密码" />
             <div class="tipsWord">{{tipsWord}}</div>
           </div>
         </li>
         <li>
           <span>确认密码：</span>
           <div class="pWord">
-            <input type="text" placeholder="123456789sdgfsdfgsdfg" />
+            <input type="text" v-model="uoPwd.password_confirmation" placeholder="请输入重复密码" />
             <div class="tipsWord">
-              <span class="tipsRed">{{tipsWordSure}}</span>
               <span class="tipsShow">请一定记得您的新密码，保存后下一次访问会需要您登陆。</span>
             </div>
           </div>
@@ -65,17 +57,43 @@ export default {
 
   data() {
     return {
+        email:'',
       inputType: false,
       tipsWord: "新旧密码重复", //密码不可低于6位 //新密码
       tipsWordSure: "新密码不一致", //确认密码
-      fixedWord: "修改"
+      fixedWord: "修改",
+        uoPwd:{
+            passwordOld:'',
+            password:'',
+            password_confirmation:'',
+        }
     };
   },
+  created(){
+      this.email=this.$route.params.email;
+  }
+,
   methods: {
     //修改密码
     fixedPassWord() {
       this.inputType = !this.inputType;
-    }
+    },
+      onSave(){
+        let _this=this;
+        _this.common.request('api/user/upPwd',_this.uoPwd,function (res) {
+            if(res.status == 200){
+                _this.$message({
+                    message: res.message,
+                    type: 'success',
+                    duration: 1500,
+                    center: true,
+                    onClose:function (res) {
+                        _this.$router.go(-1);
+                    }
+                });
+            }
+        },'post')
+      }
   }
 };
 </script>
@@ -96,6 +114,14 @@ export default {
       .tips {
         font-size: 12px;
       }
+    }
+       .inputW{
+      width: calc(100% - 120px);
+      input{
+      width: 100%;
+      color: #333;
+      font-size: 14px;
+    }
     }
 
     span.tipsRed {
